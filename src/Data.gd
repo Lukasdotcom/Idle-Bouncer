@@ -73,5 +73,10 @@ func beautifyHelper(val: int, count: int) -> int: # A helper function for beauti
 	return count
 
 func reset() -> void: # Used to reset the game
-	var dir = Directory.new()
-	dir.remove(save_file)
+	var file = File.new()
+	file.open(save_file, File.WRITE)
+	var _save_data = to_json({
+		"version" : "empty"
+	})
+	file.store_string(_save_data)
+	file.close()
