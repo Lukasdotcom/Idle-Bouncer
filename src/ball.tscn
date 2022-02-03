@@ -9,7 +9,7 @@ radius = 100.0
 [sub_resource type="CircleShape2D" id=2]
 
 [node name="ball" type="KinematicBody2D"]
-modulate = Color( 0, 0, 0.941176, 1 )
+modulate = Color( 0.122, 0.122, 0.61, 1 )
 collision_layer = 2
 script = ExtResource( 2 )
 speed = 100
