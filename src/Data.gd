@@ -4,6 +4,7 @@ signal update_game_interface
 var money = 0 setget change_money
 var coins = 0 setget change_coins
 var earnings = [0, 10, 50, 400]
+var cost = [0, 100, 500, 4000]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

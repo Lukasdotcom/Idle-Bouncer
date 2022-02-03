@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/main_theme.tres" type="Theme" id=1]
+[ext_resource path="res://src/purchase.gd" type="Script" id=2]
+
+[node name="purchase" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Text" type="Label" parent="."]
+margin_right = 375.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 375, 70 )
+rect_pivot_offset = Vector2( -215, -100 )
+theme = ExtResource( 1 )
+text = "Level 1 cost: %s
+Money Per Level 1: %s"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buy" type="Button" parent="."]
+margin_left = 3.0
+margin_top = 70.0
+margin_right = 369.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 366, 51 )
+theme = ExtResource( 1 )
+text = "Buy Level 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_up" from="Buy" to="." method="_on_Buy_button_up"]
