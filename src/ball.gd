@@ -32,6 +32,7 @@ func calcVelcoity(angle: float, speed: float) -> Vector2: # calculates the veloc
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("respawn"):
+		Data.money += 1
 		respawn(true)
 	var _result = move_and_slide_angles(fix_rotation_calculation(self.rotation), speed, delta)
 	self.rotate(-self.rotation)
