@@ -19,8 +19,9 @@ Money Per Level %s: %s""" % [level, Data.cost[level], level, Data.earnings[level
 
 func _on_Buy_button_up() -> void: # Used to pruchase and then increases the price when purchased
 	if Data.cost[level] <= Data.money:
+		var _cost = Data.cost[level]
 		Data.cost[level] = floor(1.15* Data.cost[level])
-		Data.money -= Data.cost[level]
+		Data.money -= _cost
 		var _instance = load("res://src/box.tscn")
 		_instance = _instance.instance()
 		_instance.level = level
