@@ -62,3 +62,7 @@ func beautifyHelper(val: int, count: int) -> int: # A helper function for beauti
 	if(val or count == -1):
 		return beautifyHelper(floor(val / 10), count+1)
 	return count
+
+func reset() -> void: # Used to reset the game
+	var dir = Directory.new()
+	dir.remove(save_file)

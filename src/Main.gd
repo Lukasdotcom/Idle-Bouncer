@@ -21,3 +21,7 @@ func _ready() -> void:
 func update_interface() -> void:
 	get_node("/root/Main/ScrollContainer/VBoxContainer/Coins").text = "Coins: %s" % Data.beautify(Data.coins)
 	get_node("/root/Main/ScrollContainer/VBoxContainer/Money").text = "Money: %s" % Data.beautify(Data.money)
+
+
+func _on_Reset_button_up() -> void: # Used to reset the game
+	Data.reset()

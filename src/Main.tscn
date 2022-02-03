@@ -85,3 +85,28 @@ position = Vector2( 512, 300 )
 position = Vector2( 437, 298 )
 rotation = -1.4207
 speed = 200
+
+[node name="Reset" type="Button" parent="."]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 666.0
+margin_top = 525.0
+margin_right = 837.0
+margin_bottom = 562.0
+theme = ExtResource( 5 )
+text = "RESET GAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 595.0
+margin_top = 566.0
+margin_right = 938.0
+margin_bottom = 597.0
+theme = ExtResource( 5 )
+text = "After reseting refresh the game."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_up" from="Reset" to="." method="_on_Reset_button_up"]
