@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func update_interface() -> void:
 	text.text = """Level %s cost: %s
-Money Per Level %s: %s""" % [level, Data.cost[level], level, Data.earnings[level]]
+Money Per Level %s: %s""" % [level, Data.beautify(Data.cost[level]), level, Data.beautify(Data.earnings[level])]
 	if Data.cost[level] <= Data.money:
 		button.disabled = false
 	else:

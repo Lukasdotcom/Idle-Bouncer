@@ -12,14 +12,14 @@ var boxes = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var file = File.new()
-	if file.file_exists(save_file):
+	if file.file_exists(save_file): # Checks for a save file and then loads all the data from it
 		file.open(save_file, File.READ)
 		var _data = parse_json(file.get_as_text())
 		if _data["version"] == "v0.1.3":
 			file.close()
 			money = _data["money"]
 			cost = _data["cost"]
-			for x in _data["boxes"]:
+			for x in _data["boxes"]: # Loads every box available
 				var _instance = load("res://src/box.tscn")
 				_instance = _instance.instance()
 				_instance.level = x[1]
@@ -52,3 +52,13 @@ func save() -> void: # Used to save the game
 	})
 	file.store_string(_save_data)
 	file.close()
+
+func beautify(val: float) -> String: # Will make a big number easier to read
+	var shortcut = ["", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion"]
+	var length = beautifyHelper(val, -1)
+	return "%s %s" % [floor(val / (pow(10,(length - (length % 3) - 3)))) / 1000, shortcut[floor(length / 3)]]
+
+func beautifyHelper(val: int, count: int) -> int: # A helper function for beautify
+	if(val or count == -1):
+		return beautifyHelper(floor(val / 10), count+1)
+	return count
