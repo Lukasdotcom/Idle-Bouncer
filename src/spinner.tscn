@@ -7,7 +7,7 @@
 radius = 11.0
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 3.5, 0.5 )
+extents = Vector2( 3, 0.5 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "Spin"
@@ -45,7 +45,7 @@ shape = SubResource( 1 )
 [node name="spinner1" type="Sprite" parent="."]
 modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 0, -40 )
-scale = Vector2( 0.117188, 0.0234374 )
+scale = Vector2( 0.2, 0.04 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -3.05176e-05 )
 
@@ -55,12 +55,13 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spinner1Collider"]
 position = Vector2( 0, -40 )
+scale = Vector2( 1.5, 1.5 )
 shape = SubResource( 2 )
 
 [node name="spinner2" type="Sprite" parent="."]
 modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 0, 40 )
-scale = Vector2( 0.117188, 0.0234374 )
+scale = Vector2( 0.2, 0.04 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -3.05176e-05 )
 
@@ -70,6 +71,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spinner2Collider"]
 position = Vector2( 0, 40 )
+scale = Vector2( 1.5, 1.5 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
