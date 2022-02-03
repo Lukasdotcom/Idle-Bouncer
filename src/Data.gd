@@ -3,7 +3,7 @@ signal update_game_interface # Signal for when to update the UI
 
 var first
 const save_file = "user://save.json"
-var money = 999999999999 setget change_money
+var money = 0 setget change_money
 var coins = 0 setget change_coins
 var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 var cost = [0, 100, 500, 5000, 45000, 600000, 5900000]
