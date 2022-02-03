@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 onready var button = $Buy
 onready var text = $Text
 var level: int = 1

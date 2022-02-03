@@ -7,15 +7,12 @@ func _ready() -> void:
 	Data.connect("update_game_interface", self, "update_interface")
 	var _purchase = load("res://src/purchase.tscn")
 	var _instance
-	var distance = 90
 	for x in range(len(Data.cost)):
 		if x == 0:
 			continue
 		_instance = _purchase.instance()
 		_instance.level = x
-		_instance.position.y = distance
 		_vBoxContainer.call_deferred("add_child", _instance)
-		distance += 150
 
 
 func update_interface() -> void:

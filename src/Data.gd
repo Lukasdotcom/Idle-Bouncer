@@ -3,14 +3,23 @@ signal update_game_interface # Signal for when to update the UI
 
 var first
 const save_file = "user://save.json"
-var money = 0 setget change_money
+var money = 999999999999 setget change_money
 var coins = 0 setget change_coins
-var earnings = [0, 10, 50, 400]
-var cost = [0, 100, 500, 4000]
+var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
+var cost = [0, 100, 500, 5000, 45000, 600000, 5900000]
+const additional_boxes = 15
 var boxes = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Adds additional boxes
+	var _previous_earnings = earnings[-1]
+	var _previous_cost = cost[-1]
+	for x in range(additional_boxes):
+		_previous_earnings *= 6.04
+		_previous_cost * 12.75
+		earnings.append(floor(_previous_earnings))
+		cost.append(floor(_previous_cost))
 	var file = File.new()
 	if file.file_exists(save_file): # Checks for a save file and then loads all the data from it
 		file.open(save_file, File.READ)

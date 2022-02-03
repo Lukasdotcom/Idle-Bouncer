@@ -12,7 +12,7 @@ func _ready() -> void:
 		Data.boxes.append([animation.current_animation_position - Data.first.current_animation_position, level])
 	Data.save() # Makes sure to save the game right away.
 	var _sprite: Sprite = $Node2D/Sprite
-	_sprite.set_modulate(Color.from_hsv((100+30*level)/360.0, 0.9, 1, 1))
+	_sprite.set_modulate(Color.from_hsv((115+15*level)/360.0, 0.9, 1, 1))
 
 func _on_hit(area: Area2D) -> void:
 	Data.coins += Data.earnings[level]
