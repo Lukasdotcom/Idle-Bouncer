@@ -1,21 +1,21 @@
 extends KinematicBody2D
 
 export var speed: int = 10
+var existence_length: int = 0
 var _rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_rng.randomize()
 	respawn()
 
-func respawn(reset: bool=false) -> void: # Used to respawn the ball at the starting location
-	if reset: # Checks if the coins should be reset
-		Data.reset_coins()
+func respawn() -> void: # Used to respawn the ball at the starting location
 	# Sets a random rotation and moves a little away from the center
 	var _rotation = _rng.randf() * 360
 	self.position.x = 512
 	self.position.y = 300
 	self.rotation_degrees = _rotation
 	move_and_slide_angles(fix_rotation_calculation(self.rotation), 50, 1)
+
 
 # Stolen code
 func fix_rotation_calculation(angle: float) -> float: # Used to fix the calculation of the self.rotation_degrees
@@ -33,14 +33,14 @@ func calcVelcoity(angle: float, speed: float) -> Vector2: # calculates the veloc
 	return Vector2( cos(angle) * speed, -sin(angle) * speed)
 # End of stolen code
 
+
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("respawn"):
 		Data.money += 1
-		respawn(true)
+		respawn()
 	var _result = move_and_slide_angles(fix_rotation_calculation(self.rotation), speed, delta)
 	self.rotate(-self.rotation)
 	self.rotate(_result[1])
 
 func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void: # Checks if the doubler was hit
-	Data.coins *= 2
 	respawn()
