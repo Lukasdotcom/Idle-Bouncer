@@ -8,8 +8,9 @@ func _ready() -> void:
 	respawn()
 
 func respawn(reset: bool=false) -> void: # Used to respawn the ball at the starting location
-	if reset:
+	if reset: # Checks if the coins should be reset
 		Data.reset_coins()
+	# Sets a random rotation and moves a little away from the center
 	var _rotation = _rng.randf() * 360
 	self.position.x = 512
 	self.position.y = 300
@@ -42,8 +43,4 @@ func _physics_process(delta: float) -> void:
 
 func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void: # Checks if the doubler was hit
 	Data.coins *= 2
-	respawn()
-
-func _on_spinner_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void: # Checks if the spinner was hit
-	Data.coins = 0
 	respawn()

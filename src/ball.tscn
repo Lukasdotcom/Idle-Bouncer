@@ -31,13 +31,4 @@ collision_mask = 8
 visible = false
 shape = SubResource( 2 )
 
-[node name="spinner" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="spinner"]
-visible = false
-shape = SubResource( 2 )
-
 [connection signal="area_shape_entered" from="doubler" to="." method="_on_doubler_area_shape_entered"]
-[connection signal="area_shape_entered" from="spinner" to="." method="_on_spinner_area_shape_entered"]
