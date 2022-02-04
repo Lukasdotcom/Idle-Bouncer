@@ -18,4 +18,4 @@ func _ready() -> void:
 		_sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
 
 func _on_hit(area: Area2D) -> void:
-	Data.coins += Data.earnings[level]
+	Data.money += Data.earnings[level]
