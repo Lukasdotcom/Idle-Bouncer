@@ -14,6 +14,7 @@ func respawn() -> void: # Used to respawn the ball at the starting location
 		timer.stop()
 		timer.wait_time = existence_length
 		timer.start()
+		self.modulate = Color("b71515")
 	# Sets a random rotation and moves a little away from the center
 	var _rotation = _rng.randf() * 360
 	self.position.x = 512
@@ -47,12 +48,13 @@ func _physics_process(delta: float) -> void:
 	self.rotate(_result[1])
 
 func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void: # Checks if the doubler was hit
-	respawn() # Respawns
-	# Spawns a new ball
-	var _instance = load("res://src/ball.tscn")
-	_instance = _instance.instance()
-	_instance.existence_length = 5
-	get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
+	if existence_length == 0:
+		respawn() # Respawns
+		# Spawns a new ball
+		var _instance = load("res://src/ball.tscn")
+		_instance = _instance.instance()
+		_instance.existence_length = 5
+		get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 
 func _on_Timer_timeout() -> void: # Ball disappear after timer times out
 	self.queue_free()
