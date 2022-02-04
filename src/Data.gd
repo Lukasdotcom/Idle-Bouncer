@@ -8,6 +8,8 @@ var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 var cost = [0, 100, 500, 5000, 45000, 600000, 5900000]
 const additional_boxes = 9
 var boxes = []
+var multiplier = 1
+var duplicaters_duplicate = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

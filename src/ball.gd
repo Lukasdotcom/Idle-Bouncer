@@ -48,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	self.rotate(_result[1])
 
 func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void: # Checks if the doubler was hit
-	if existence_length == 0:
+	if existence_length == 0 or Data.duplicaters_duplicate:
 		respawn() # Respawns
 		# Spawns a new ball
 		var _instance = load("res://src/ball.tscn")
