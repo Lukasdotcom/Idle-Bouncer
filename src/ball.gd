@@ -53,7 +53,7 @@ func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_inde
 		# Spawns a new ball
 		var _instance = load("res://src/ball.tscn")
 		_instance = _instance.instance()
-		_instance.existence_length = 5
+		_instance.existence_length = 15
 		get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 
 func _on_Timer_timeout() -> void: # Ball disappear after timer times out
