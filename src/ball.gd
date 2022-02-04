@@ -10,9 +10,11 @@ func _ready() -> void:
 func respawn(reset: bool=false) -> void: # Used to respawn the ball at the starting location
 	if reset:
 		Data.reset_coins()
-	self.position.x = 437
-	self.position.y = 298
-	self.rotation_degrees = _rng.randf() * -140 - 20
+	var _rotation = _rng.randf() * 360
+	self.position.x = 512
+	self.position.y = 300
+	self.rotation_degrees = _rotation
+	move_and_slide_angles(fix_rotation_calculation(self.rotation), 50, 1)
 
 # Stolen code
 func fix_rotation_calculation(angle: float) -> float: # Used to fix the calculation of the self.rotation_degrees
