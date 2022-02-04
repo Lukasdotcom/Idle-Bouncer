@@ -83,7 +83,6 @@ position = Vector2( 512, 300 )
 
 [node name="ball" parent="Game Field" instance=ExtResource( 4 )]
 position = Vector2( 512, 300 )
-speed = 200
 
 [node name="Reset" type="Button" parent="."]
 modulate = Color( 1, 0, 0, 1 )
