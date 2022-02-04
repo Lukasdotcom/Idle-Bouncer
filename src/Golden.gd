@@ -40,7 +40,7 @@ func _on_Button_button_up() -> void: # Starts the golden effect
 		label.text = "x77 multiplier"
 		Data.multiplier = 77
 	else: # Will allow for duplicated balls to duplicate for 60 seconds.
-		time_left = 60
+		time_left = 30
 		label.text = "Duplicating Duplicators"
 		Data.duplicaters_duplicate = true
 	label.show()
