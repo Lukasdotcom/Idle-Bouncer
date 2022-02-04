@@ -1,38 +1,53 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/main_theme.tres" type="Theme" id=1]
 [ext_resource path="res://src/purchase.gd" type="Script" id=2]
+[ext_resource path="res://assets/white.png" type="Texture" id=3]
 
 [node name="purchase" type="Control"]
-margin_bottom = 150.0
-rect_min_size = Vector2( 0, 150 )
+margin_right = 370.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 370, 57 )
+theme = ExtResource( 1 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="Label" parent="."]
-margin_right = 375.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 375, 70 )
-rect_pivot_offset = Vector2( -215, -100 )
+[node name="Buy" type="Button" parent="."]
+margin_right = 366.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 0, 51 )
 theme = ExtResource( 1 )
-text = "Level 1 cost: %s
-Money Per Level 1: %s"
+text = "Buy Level %s for %s"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buy" type="Button" parent="."]
-margin_left = 3.0
-margin_top = 70.0
-margin_right = 369.0
-margin_bottom = 121.0
-rect_min_size = Vector2( 366, 51 )
-theme = ExtResource( 1 )
-text = "Buy Level 1"
+[node name="Popup" type="PopupDialog" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -372.0
+margin_bottom = 56.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Popup"]
+position = Vector2( 23, 28 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="Earnings" type="Label" parent="Popup"]
+margin_left = 49.0
+margin_top = 11.0
+margin_right = 363.0
+margin_bottom = 45.0
+text = "%s money per hit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [connection signal="button_up" from="Buy" to="." method="_on_Buy_button_up"]
+[connection signal="mouse_entered" from="Buy" to="." method="_on_Buy_mouse_entered"]
+[connection signal="mouse_exited" from="Buy" to="." method="_on_Buy_mouse_exited"]

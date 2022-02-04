@@ -18,8 +18,8 @@ func _ready() -> void:
 	for x in range(additional_boxes):
 		_previous_earnings *= 6.04
 		_previous_cost *= 12.75
-		earnings.append(_previous_earnings)
-		cost.append(_previous_cost)
+		earnings.append(floor(_previous_earnings))
+		cost.append(floor(_previous_cost))
 	var file = File.new()
 	if file.file_exists(save_file): # Checks for a save file and then loads all the data from it
 		file.open(save_file, File.READ)
@@ -27,8 +27,11 @@ func _ready() -> void:
 		if _data["version"] == "v0.1.3": # updates save to v0.1.4
 			for x in range(7, 21):
 				_data["cost"][x] = cost[x]
-				_data["version"] = "v0.1.4"
-		if _data["version"] == "v0.1.4": # Loads the save
+			_data["version"] = "v0.1.4"
+		if _data["version"] == "v0.1.4": # updates save to v0.1.4
+			_data["cost"][21] = cost[21]
+			_data["version"] = "v0.1.5"
+		if _data["version"] == "v0.1.5": # Loads the save
 			file.close()
 			money = _data["money"]
 			cost = _data["cost"]
