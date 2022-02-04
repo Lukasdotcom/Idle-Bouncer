@@ -5,7 +5,7 @@ var first
 const save_file = "user://save.json"
 var money = 0.0 setget change_money
 var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
-var cost = [0, 100, 500, 5000, 45000, 600000, 5900000]
+var cost = [0, 10, 50, 500, 4500, 60000, 590000]
 const additional_boxes = 9
 var boxes = []
 var multiplier = 1
@@ -38,7 +38,11 @@ func _ready() -> void:
 			_data["cost"].pop_back()
 			_data["cost"].pop_back()
 			_data["version"] = "v0.1.5"
-		if _data["version"] == "v0.1.5": # Loads the save
+		if _data["version"] == "v0.1.5":
+			for x in range(15):
+				_data["cost"][x] = floor(_data["cost"][x] / 10)
+			_data["version"] = "v0.3.0"
+		if _data["version"] == "v0.3.0": # Loads the save
 			file.close()
 			money = _data["money"]
 			cost = _data["cost"]
@@ -58,10 +62,10 @@ func save() -> void: # Used to save the game
 	var file = File.new()
 	file.open(save_file, File.WRITE)
 	var _save_data = to_json({
-		"money" : money,
+		"money" : floor(money),
 		"boxes" : boxes,
 		"cost" : cost,
-		"version" : "v0.1.5"
+		"version" : "v0.3.0"
 	})
 	file.store_string(_save_data)
 	file.close()

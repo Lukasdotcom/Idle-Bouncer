@@ -31,6 +31,8 @@ func move_and_slide_angles(angle: float, speed: float, delta: float) -> Array: #
 	var _velocity = calcVelcoity(angle, speed)*delta
 	var _correction = move_and_collide(_velocity)
 	var _test = _velocity
+	if _correction: # Adds 1 money if collision detected
+		Data.money += 1
 	_velocity =  _velocity.bounce(_correction.normal) if _correction else _velocity
 	angle = _velocity.angle() + 3.141592/2
 	return [_velocity.length()/delta if speed > 0 else -1 * _velocity.length()/delta, angle if speed > 0 else angle - 3.1415, _correction]	
@@ -41,8 +43,6 @@ func calcVelcoity(angle: float, speed: float) -> Vector2: # calculates the veloc
 
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("respawn"):
-		Data.money += 1
 	var _result = move_and_slide_angles(fix_rotation_calculation(self.rotation), speed, delta)
 	self.rotate(-self.rotation)
 	self.rotate(_result[1])
