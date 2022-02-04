@@ -7,7 +7,7 @@ var money = 0.0 setget change_money
 var coins = 0.0 setget change_coins
 var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 var cost = [0, 100, 500, 5000, 45000, 600000, 5900000]
-const additional_boxes = 15
+const additional_boxes = 9
 var boxes = []
 
 # Called when the node enters the scene tree for the first time.
@@ -29,7 +29,13 @@ func _ready() -> void:
 				_data["cost"][x] = cost[x]
 			_data["version"] = "v0.1.4"
 		if _data["version"] == "v0.1.4": # updates save to v0.1.4
-			_data["cost"][21] = cost[21]
+			# Removes the last 6 elements because those were removed
+			_data["cost"].pop_back()
+			_data["cost"].pop_back()
+			_data["cost"].pop_back()
+			_data["cost"].pop_back()
+			_data["cost"].pop_back()
+			_data["cost"].pop_back()
 			_data["version"] = "v0.1.5"
 		if _data["version"] == "v0.1.5": # Loads the save
 			file.close()
@@ -64,7 +70,7 @@ func save() -> void: # Used to save the game
 		"money" : money,
 		"boxes" : boxes,
 		"cost" : cost,
-		"version" : "v0.1.4"
+		"version" : "v0.1.5"
 	})
 	file.store_string(_save_data)
 	file.close()
