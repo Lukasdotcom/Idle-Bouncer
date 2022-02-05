@@ -71,7 +71,7 @@ func save() -> void: # Used to save the game
 	file.close()
 
 func beautify(val: float) -> String: # Will make a big number easier to read
-	var shortcut = ["", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion"]
+	var shortcut = ["", "K", "M", "B", "T", "Q", "Qu", "S", "Sp", "O", "N", "D"]
 	var length = beautifyHelper(val, -1)
 	return "%s %s" % [floor(val / (pow(10,(length - (length % 3) - 3)))) / 1000, shortcut[floor(length / 3)]]
 
