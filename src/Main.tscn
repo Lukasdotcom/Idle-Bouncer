@@ -57,6 +57,14 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 105.0
+margin_bottom = 31.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
+margin_right = 105.0
+margin_bottom = 31.0
+theme = ExtResource( 5 )
+text = "Box Shop"
 
 [node name="Ball" type="ScrollContainer" parent="."]
 visible = false
@@ -68,6 +76,12 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Ball"]
+
+[node name="Label" type="Label" parent="Ball/VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 14.0
+theme = ExtResource( 5 )
+text = "Ball Shop"
 
 [node name="Game Field" type="Node2D" parent="."]
 position = Vector2( 250, 0 )
