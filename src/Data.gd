@@ -1,5 +1,6 @@
 extends Node2D
 signal update_game_interface # Signal for when to update the UI
+signal ball_upgrades # Signal for when balls can be upgraded
 
 var first
 const save_file = "user://save.json"
@@ -8,6 +9,8 @@ var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 var cost = [0, 10, 50, 500, 4500, 60000, 590000]
 const additional_boxes = 9
 var boxes = []
+var ball_upgrades = false # Used to check if balls can be upgraded
+var balls = [[200.0, 10.0]]
 var multiplier = 1
 var duplicaters_duplicate = false
 
@@ -42,10 +45,16 @@ func _ready() -> void:
 			for x in range(15):
 				_data["cost"][x] = floor(_data["cost"][x] / 10)
 			_data["version"] = "v0.3.0"
-		if _data["version"] == "v0.3.0": # Loads the save
+		if _data["version"] == "v0.3.0": # Introduces the save for balls
+			_data["balls"] = balls
+			_data["ball_upgrades"] = false
+			_data["version"] = "v0.4.0"
+		if _data["version"] == "v0.4.0": # Loads the save
 			file.close()
+			balls = _data["balls"]
 			money = _data["money"]
 			cost = _data["cost"]
+			ball_upgrades = _data["ball_upgrades"]
 			for x in _data["boxes"]: # Loads every box available
 				var _instance = load("res://src/box.tscn")
 				_instance = _instance.instance()
@@ -53,10 +62,18 @@ func _ready() -> void:
 				_instance.startAnimation = x[0]
 				_instance.position = Vector2(512, 300)
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
+		var _level = 1
+		for x in balls:
+			spawn_ball(_level)
+			_level += 1
 
 func change_money(value: float) -> void: # Changes the score
 	money = value
 	emit_signal("update_game_interface")
+	if not ball_upgrades and value > 1000: # Checks if ball's can be purchased.
+		Data.save()
+		ball_upgrades = true
+		emit_signal("ball_upgrades")
 
 func save() -> void: # Used to save the game
 	var file = File.new()
@@ -65,7 +82,9 @@ func save() -> void: # Used to save the game
 		"money" : floor(money),
 		"boxes" : boxes,
 		"cost" : cost,
-		"version" : "v0.3.0"
+		"ball_upgrades" : ball_upgrades,
+		"balls" : balls,
+		"version" : "v0.4.0"
 	})
 	file.store_string(_save_data)
 	file.close()
@@ -88,3 +107,9 @@ func reset() -> void: # Used to reset the game
 	})
 	file.store_string(_save_data)
 	file.close()
+
+func spawn_ball(level: int) -> void: # Used to spawn a new ball
+	var _instance = load("res://src/ball.tscn")
+	_instance = _instance.instance()
+	_instance.level = level
+	get_node("/root/Main/Game Field").call_deferred("add_child", _instance)

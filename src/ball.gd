@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 onready var timer = $Timer
 var speed: int = 200
+var level: int = 1
 var existence_length: int = 0
 var _rng = RandomNumberGenerator.new()
 
@@ -10,6 +11,8 @@ func _ready() -> void:
 	respawn()
 
 func respawn() -> void: # Used to respawn the ball at the starting location
+	Data.connect("update_game_interface", self, "update_speed")
+	update_speed()
 	if existence_length > 0: # Makes sure that the timer is at the start
 		timer.stop()
 		timer.wait_time = existence_length
@@ -53,8 +56,13 @@ func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_inde
 		# Spawns a new ball
 		var _instance = load("res://src/ball.tscn")
 		_instance = _instance.instance()
+		_instance.speed = speed
+		_instance.level = level
 		_instance.existence_length = 15
 		get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 
 func _on_Timer_timeout() -> void: # Ball disappear after timer times out
 	self.queue_free()
+
+func update_speed() -> void: # Recalculates the speed when needed
+	speed = Data.balls[level - 1][0]
