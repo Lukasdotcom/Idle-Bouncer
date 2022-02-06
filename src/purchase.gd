@@ -49,7 +49,7 @@ func _on_Buy_button_up() -> void: # Used to pruchase and then increases the pric
 	if ball: # Checks if a ball is being purchased
 		if cost <= Data.money:
 			if len(Data.balls) >= level:
-				Data.balls[level - 1][0] = floor(Data.balls[level - 1][0] * 1.1)
+				Data.balls[level - 1][0] = floor(Data.balls[level - 1][0] * 1.075)
 				Data.balls[level - 1][1] *= 10
 				Data.money -= cost
 			elif len(Data.balls) + 1 == level:

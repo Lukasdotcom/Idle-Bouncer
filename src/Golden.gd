@@ -13,6 +13,7 @@ func _ready() -> void:
 
 func _random_spawn_time() -> float: # Will return a random amount of time in which the golden will spawn
 	var _x = _rng.randf()
+	return 0.5
 	return 300 + 600 * _x
 
 func _on_Timer_timeout() -> void: # Shows a golden circle somewhere random
