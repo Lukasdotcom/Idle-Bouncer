@@ -13,6 +13,7 @@ var boxes = []
 var ball_upgrades = false # Used to check if balls can be upgraded
 var balls = [[200.0, 10.0]]
 var multiplier = 1
+var speed_multiplier = 1
 var duplicaters_duplicate = false
 
 # Called when the node enters the scene tree for the first time.

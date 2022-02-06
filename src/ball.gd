@@ -68,4 +68,4 @@ func _on_Timer_timeout() -> void: # Ball disappear after timer times out
 	self.queue_free()
 
 func update_speed() -> void: # Recalculates the speed when needed
-	speed = Data.balls[level - 1][0]
+	speed = Data.balls[level - 1][0] * Data.speed_multiplier
