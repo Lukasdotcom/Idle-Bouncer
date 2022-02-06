@@ -88,7 +88,7 @@ position = Vector2( 512, 300 )
 
 [node name="Starting Spot" type="Sprite" parent="Game Field"]
 modulate = Color( 0.121569, 0.121569, 0.121569, 1 )
-position = Vector2( 682, 300 )
+position = Vector2( 669, 300 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 7 )
 
