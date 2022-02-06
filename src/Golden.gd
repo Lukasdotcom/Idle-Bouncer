@@ -25,10 +25,12 @@ func _ready_cookie() -> void: # Used to get the cookie ready
 	self.hide()
 	label.hide()
 	timeText.hide()
+	$Button.show()
 	timer.wait_time = _random_spawn_time()
 	timer.start()
 
 func _on_Button_button_up() -> void: # Starts the golden effect
+	$Button.hide()
 	timeText.show()
 	var _choice = _rng.randi_range(0, 2)
 	if _choice == 0: # A x7 multiplier for 77 seconds
