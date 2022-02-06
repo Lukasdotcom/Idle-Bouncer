@@ -8,6 +8,7 @@ var money = 0.0 setget change_money
 var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 var cost = [0, 10, 50, 500, 4500, 60000, 590000]
 const additional_boxes = 9
+var number_of_balls = 0
 var boxes = []
 var ball_upgrades = false # Used to check if balls can be upgraded
 var balls = [[200.0, 10.0]]

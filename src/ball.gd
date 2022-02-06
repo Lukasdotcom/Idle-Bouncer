@@ -7,6 +7,7 @@ var existence_length: int = 0
 var _rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
+	Data.number_of_balls += 1
 	_rng.randomize()
 	respawn()
 
@@ -52,16 +53,18 @@ func _physics_process(delta: float) -> void:
 
 func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void: # Checks if the doubler was hit
 	if existence_length == 0 or Data.duplicaters_duplicate:
-		respawn() # Respawns
-		# Spawns a new ball
-		var _instance = load("res://src/ball.tscn")
-		_instance = _instance.instance()
-		_instance.speed = speed
-		_instance.level = level
-		_instance.existence_length = 15
-		get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
+		if Data.number_of_balls < 150: # Makes sure there are not to many balls
+			respawn() # Respawns
+			# Spawns a new ball
+			var _instance = load("res://src/ball.tscn")
+			_instance = _instance.instance()
+			_instance.speed = speed
+			_instance.level = level
+			_instance.existence_length = 15
+			get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 
 func _on_Timer_timeout() -> void: # Ball disappear after timer times out
+	Data.number_of_balls -= 1
 	self.queue_free()
 
 func update_speed() -> void: # Recalculates the speed when needed
