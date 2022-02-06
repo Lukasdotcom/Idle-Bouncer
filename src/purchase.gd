@@ -6,7 +6,7 @@ onready var popup = $Popup
 
 var level: int = 1
 var ball: bool = false
-var cost: int # Stores the cost for the upgrade or purchase
+var cost: float # Stores the cost for the upgrade or purchase
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
