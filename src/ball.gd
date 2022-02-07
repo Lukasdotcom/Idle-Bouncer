@@ -46,7 +46,7 @@ func calcVelcoity(angle: float, speed: float) -> Vector2: # calculates the veloc
 # End of stolen code
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void: # Makes sure to move the ball and bounce it of the edges
 	var _result = move_and_slide_angles(fix_rotation_calculation(self.rotation), speed, delta)
 	self.rotate(-self.rotation)
 	self.rotate(_result[1])
