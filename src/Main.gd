@@ -35,5 +35,9 @@ func ball_upgrades() -> void: # Used to enable the ball upgrades
 		_instance.ball = true
 		scroll_container.call_deferred("add_child", _instance)
 
+# Saves the game every 30 seconds and every time the save button is pressed
 func _on_Save_timeout() -> void:
+	Data.save()
+
+func _on_Save_Button_button_up() -> void:
 	Data.save()

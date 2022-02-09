@@ -108,11 +108,22 @@ position = Vector2( 669, 300 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 7 )
 
+[node name="Save Button" type="Button" parent="."]
+margin_left = 666.0
+margin_top = 24.0
+margin_right = 846.0
+margin_bottom = 61.0
+theme = ExtResource( 5 )
+text = "Save Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Reset" type="Button" parent="."]
 modulate = Color( 1, 0, 0, 1 )
 margin_left = 666.0
 margin_top = 525.0
-margin_right = 837.0
+margin_right = 846.0
 margin_bottom = 562.0
 theme = ExtResource( 5 )
 text = "RESET GAME"
@@ -139,5 +150,6 @@ position = Vector2( 550, 223 )
 wait_time = 30.0
 autostart = true
 
+[connection signal="button_up" from="Save Button" to="." method="_on_Save_Button_button_up"]
 [connection signal="button_up" from="Reset" to="." method="_on_Reset_button_up"]
 [connection signal="timeout" from="Save" to="." method="_on_Save_timeout"]
