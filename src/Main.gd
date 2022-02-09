@@ -34,3 +34,6 @@ func ball_upgrades() -> void: # Used to enable the ball upgrades
 		_instance.level = x
 		_instance.ball = true
 		scroll_container.call_deferred("add_child", _instance)
+
+func _on_Save_timeout() -> void:
+	Data.save()

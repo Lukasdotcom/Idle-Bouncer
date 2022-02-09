@@ -57,7 +57,6 @@ func _on_Buy_button_up() -> void: # Used to pruchase and then increases the pric
 				Data.money -= cost
 				Data.spawn_ball(level)
 		update_interface()
-		Data.save() # Makes sure to save the game after a purchase
 	else:
 		if Data.cost[level] <= Data.money:
 			var _cost = Data.cost[level]

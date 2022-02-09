@@ -13,7 +13,6 @@ func _ready() -> void:
 			Data.first = animation
 		else:
 			Data.boxes.append([animation.current_animation_position - Data.first.current_animation_position, level])
-		Data.save() # Makes sure to save the game right away.
 		var _sprite: Sprite = $Node2D/Sprite
 		_sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
 

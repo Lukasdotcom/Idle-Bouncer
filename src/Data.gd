@@ -73,7 +73,6 @@ func change_money(value: float) -> void: # Changes the score
 	money = value
 	emit_signal("update_game_interface")
 	if not ball_upgrades and value > 1000: # Checks if ball's can be purchased.
-		Data.save()
 		ball_upgrades = true
 		emit_signal("ball_upgrades")
 
