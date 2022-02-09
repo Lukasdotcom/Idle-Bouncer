@@ -27,7 +27,7 @@ func _on_Reset_button_up() -> void: # Used to reset the game
 func ball_upgrades() -> void: # Used to enable the ball upgrades
 	var scroll_container = $Ball/VBoxContainer
 	$Ball.show()
-	$ScrollContainer.rect_size.y = 400
+	$ScrollContainer.rect_size.y = 369
 	var _ball = load("res://src/purchase.tscn")
 	for x in range(1, 10):
 		var _instance = _ball.instance()
