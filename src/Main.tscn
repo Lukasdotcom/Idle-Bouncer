@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/black.png" type="Texture" id=1]
 [ext_resource path="res://src/Main.gd" type="Script" id=2]
 [ext_resource path="res://src/box.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/MPS Calculator.gd" type="Script" id=4]
 [ext_resource path="res://assets/main_theme.tres" type="Theme" id=5]
 [ext_resource path="res://src/spinner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/white.png" type="Texture" id=7]
@@ -40,15 +41,25 @@ script = ExtResource( 2 )
 [node name="Money" type="Label" parent="."]
 margin_right = 118.0
 margin_bottom = 31.0
-rect_pivot_offset = Vector2( -215, -100 )
 theme = ExtResource( 5 )
 text = "Money: %s"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="Money Per Second" type="Label" parent="."]
+margin_left = 1.0
 margin_top = 31.0
+margin_right = 119.0
+margin_bottom = 62.0
+theme = ExtResource( 5 )
+text = "MPS: %s"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_top = 62.0
 margin_right = 495.0
 margin_bottom = 600.0
 theme = ExtResource( 5 )
@@ -150,6 +161,12 @@ position = Vector2( 550, 223 )
 wait_time = 30.0
 autostart = true
 
+[node name="MPS Calculator" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+script = ExtResource( 4 )
+
 [connection signal="button_up" from="Save Button" to="." method="_on_Save_Button_button_up"]
 [connection signal="button_up" from="Reset" to="." method="_on_Reset_button_up"]
 [connection signal="timeout" from="Save" to="." method="_on_Save_timeout"]
+[connection signal="timeout" from="MPS Calculator" to="MPS Calculator" method="_on_Calculator_timeout"]
