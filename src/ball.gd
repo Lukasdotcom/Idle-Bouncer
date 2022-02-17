@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void: # Makes sure to move the ball and b
 
 func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void: # Checks if the doubler was hit
 	if existence_length == 0 or Data.duplicaters_duplicate:
-		if Data.number_of_balls < 150: # Makes sure there are not to many balls
+		if Data.number_of_balls < 100: # Makes sure there are not to many balls
 			respawn() # Respawns
 			# Spawns a new ball
 			var _instance = load("res://src/ball.tscn")
