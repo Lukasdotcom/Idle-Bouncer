@@ -31,27 +31,6 @@ func _ready() -> void:
 	if file.file_exists(save_file): # Checks for a save file and then loads all the data from it
 		file.open(save_file, File.READ)
 		var _data = parse_json(file.get_as_text())
-		if _data["version"] == "v0.1.3": # updates save to v0.1.4
-			for x in range(7, 21):
-				_data["cost"][x] = cost[x]
-			_data["version"] = "v0.1.4"
-		if _data["version"] == "v0.1.4": # updates save to v0.1.4
-			# Removes the last 6 elements because those were removed
-			_data["cost"].pop_back()
-			_data["cost"].pop_back()
-			_data["cost"].pop_back()
-			_data["cost"].pop_back()
-			_data["cost"].pop_back()
-			_data["cost"].pop_back()
-			_data["version"] = "v0.1.5"
-		if _data["version"] == "v0.1.5":
-			for x in range(15):
-				_data["cost"][x] = floor(_data["cost"][x] / 10)
-			_data["version"] = "v0.3.0"
-		if _data["version"] == "v0.3.0": # Introduces the save for balls
-			_data["balls"] = balls
-			_data["ball_upgrades"] = false
-			_data["version"] = "v0.4.0"
 		if _data["version"] == "v0.5.0": # Loads the save
 			balls = _data["balls"]
 			money = _data["money"]
@@ -93,7 +72,7 @@ func save() -> void: # Used to save the game
 		"cost" : cost,
 		"ball_upgrades" : ball_upgrades,
 		"balls" : balls,
-		"version" : "v0.4.0"
+		"version" : "v0.5.0"
 	})
 	file.store_string(_save_data)
 	file.close()

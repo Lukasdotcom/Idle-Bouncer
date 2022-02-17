@@ -86,7 +86,7 @@ func _on_Buy_mouse_exited() -> void:
 func _on_Sell_button_up() -> void:
 	if Data.box_number(level) > 0:
 		Data.cost[level] = ceil(Data.cost[level] / 1.15)
-		Data.money += Data.cost[level]
+		Data.money += ceil(Data.cost[level] * 0.5)
 		for x in get_node("/root/Main/Game Field").get_children():
 			if "box" in x.get_name():
 				if x.level == level:
