@@ -9,7 +9,7 @@ var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 var cost = [0, 10, 50, 500, 4500, 60000, 590000]
 const additional_boxes = 9
 var number_of_balls = 0
-var boxes = []
+var boxes = [[0, 1]]
 var ball_upgrades = false # Used to check if balls can be upgraded
 var balls = [[200.0, 10.0]]
 var multiplier = 1
@@ -51,8 +51,7 @@ func _ready() -> void:
 			_data["balls"] = balls
 			_data["ball_upgrades"] = false
 			_data["version"] = "v0.4.0"
-		if _data["version"] == "v0.4.0": # Loads the save
-			file.close()
+		if _data["version"] == "v0.5.0": # Loads the save
 			balls = _data["balls"]
 			money = _data["money"]
 			cost = _data["cost"]
@@ -64,6 +63,7 @@ func _ready() -> void:
 				_instance.startAnimation = x[0]
 				_instance.position = Vector2(512, 300)
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
+		file.close()
 		var _level = 1
 		for x in balls:
 			spawn_ball(_level)
@@ -114,3 +114,12 @@ func spawn_ball(level: int) -> void: # Used to spawn a new ball
 	_instance = _instance.instance()
 	_instance.level = level
 	get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
+
+func box_number(level: int) -> int: # Returns the number of boxes that are at that level. You can also put in 0 to get the number of boxes
+	if level == 0:
+		return len(boxes)
+	var _count = 0
+	for x in boxes:
+		if x[1] == level:
+			_count += 1
+	return _count

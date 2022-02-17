@@ -2,6 +2,7 @@ extends Control
 onready var sprite = $Popup/Sprite
 onready var button = $Buy
 onready var earnings = $Popup/Earnings
+onready var number = $Popup/Number
 onready var popup = $Popup
 
 var level: int = 1
@@ -40,6 +41,7 @@ func update_interface() -> void: # Updates the buttons data
 	else:
 		button.text = "Buy Level %s for %s" % [level, Data.beautify(Data.cost[level])]
 		earnings.text = "%s money per hit" % [Data.beautify(Data.earnings[level])]
+		number.text = "You have %s" % Data.box_number(level)
 		if Data.cost[level] <= Data.money:
 			button.disabled = false
 		else:
