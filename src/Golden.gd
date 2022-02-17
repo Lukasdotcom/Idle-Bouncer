@@ -21,6 +21,7 @@ func _on_Timer_timeout() -> void: # Shows a golden circle somewhere random
 
 func _ready_cookie() -> void: # Used to get the cookie ready
 	Data.multiplier = 1
+	Data.speed_multiplier = 1
 	Data.duplicaters_duplicate = false
 	self.hide()
 	label.hide()
