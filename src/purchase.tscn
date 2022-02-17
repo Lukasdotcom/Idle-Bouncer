@@ -5,9 +5,9 @@
 [ext_resource path="res://assets/white.png" type="Texture" id=3]
 
 [node name="purchase" type="Control"]
-margin_right = 370.0
+margin_right = 422.0
 margin_bottom = 57.0
-rect_min_size = Vector2( 370, 57 )
+rect_min_size = Vector2( 422, 57 )
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 __meta__ = {
@@ -24,8 +24,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Sell" type="Button" parent="."]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 366.0
+margin_right = 418.0
+margin_bottom = 51.0
+rect_scale = Vector2( 0.996531, 1 )
+theme = ExtResource( 1 )
+text = "Sell"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Popup" type="PopupDialog" parent="."]
-visible = true
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -372.0
@@ -62,3 +73,6 @@ __meta__ = {
 [connection signal="button_up" from="Buy" to="." method="_on_Buy_button_up"]
 [connection signal="mouse_entered" from="Buy" to="." method="_on_Buy_mouse_entered"]
 [connection signal="mouse_exited" from="Buy" to="." method="_on_Buy_mouse_exited"]
+[connection signal="button_up" from="Sell" to="." method="_on_Sell_button_up"]
+[connection signal="mouse_entered" from="Sell" to="." method="_on_Buy_mouse_entered"]
+[connection signal="mouse_exited" from="Sell" to="." method="_on_Buy_mouse_exited"]

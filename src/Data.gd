@@ -3,13 +3,14 @@ signal update_game_interface # Signal for when to update the UI
 signal ball_upgrades # Signal for when balls can be upgraded
 
 var first
+var first_animation
 const save_file = "user://save.json"
 var money = 0.0 setget change_money
 var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 var cost = [0, 10, 50, 500, 4500, 60000, 590000]
 const additional_boxes = 9
 var number_of_balls = 0
-var boxes = [[0, 1]]
+var boxes = []
 var ball_upgrades = false # Used to check if balls can be upgraded
 var balls = [[200.0, 10.0]]
 var multiplier = 1
@@ -63,6 +64,13 @@ func _ready() -> void:
 				_instance.startAnimation = x[0]
 				_instance.position = Vector2(512, 300)
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
+		else: # Runs info for when no save is found
+			var _instance = load("res://src/box.tscn")
+			_instance = _instance.instance()
+			_instance.level = 1
+			_instance.startAnimation = 0
+			_instance.position = Vector2(512, 300)
+			get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 		file.close()
 		var _level = 1
 		for x in balls:

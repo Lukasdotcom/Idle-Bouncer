@@ -4,6 +4,7 @@ onready var button = $Buy
 onready var earnings = $Popup/Earnings
 onready var number = $Popup/Number
 onready var popup = $Popup
+onready var sell = $Sell
 
 var level: int = 1
 var ball: bool = false
@@ -19,6 +20,7 @@ func _ready() -> void:
 			update_interface()
 			Data.connect("update_game_interface", self, "update_interface")
 	else:
+		sell.hide()
 		Data.connect("update_game_interface", self, "update_interface")
 		update_interface()
 
@@ -39,6 +41,10 @@ func update_interface() -> void: # Updates the buttons data
 		else:
 			button.disabled = true
 	else:
+		if Data.box_number(level) > 0:
+			sell.disabled = false
+		else:
+			sell.disabled = true
 		button.text = "Buy Level %s for %s" % [level, Data.beautify(Data.cost[level])]
 		earnings.text = "%s money per hit" % [Data.beautify(Data.earnings[level])]
 		number.text = "You have %s" % Data.box_number(level)
@@ -76,3 +82,15 @@ func _on_Buy_mouse_entered() -> void:
 
 func _on_Buy_mouse_exited() -> void:
 	popup.hide()
+
+func _on_Sell_button_up() -> void:
+	if Data.box_number(level) > 0:
+		Data.cost[level] = ceil(Data.cost[level] / 1.15)
+		Data.money += Data.cost[level]
+		for x in get_node("/root/Main/Game Field").get_children():
+			if "box" in x.get_name():
+				if x.level == level:
+					x.delete()
+					return
+		if Data.box_number(level) == 1:
+			sell.disabled = true
