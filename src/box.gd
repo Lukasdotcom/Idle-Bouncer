@@ -17,7 +17,11 @@ func _ready() -> void:
 		Data.boxes.append(id)
 		Data.money += 0
 		var _sprite: Sprite = $Node2D/Sprite
-		_sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
+		if level > 15:
+			_sprite.scale = Vector2(0.1, 0.1)
+			_sprite.set_modulate(Color.from_hsv((120+20*(level-15))/360.0, 0.9, 1, 1))
+		else:
+			_sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
 
 func _on_hit(area: Area2D) -> void:
 	var _earnings = Data.earnings[level] * Data.multiplier

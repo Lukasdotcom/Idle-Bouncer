@@ -29,7 +29,7 @@ func ball_upgrades() -> void: # Used to enable the ball upgrades
 	$Ball.show()
 	$ScrollContainer.rect_size.y = 369
 	var _ball = load("res://src/purchase.tscn")
-	for x in range(1, 10):
+	for x in range(1, 20):
 		var _instance = _ball.instance()
 		_instance.level = x
 		_instance.ball = true

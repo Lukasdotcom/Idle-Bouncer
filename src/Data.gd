@@ -8,7 +8,7 @@ const save_file = "user://save.json"
 var money = 0.0 setget change_money
 var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 var cost = [0, 10, 50, 500, 4500, 60000, 590000]
-const additional_boxes = 9
+const additional_boxes = 24
 var number_of_balls = 0
 var boxes = []
 var ball_upgrades = false # Used to check if balls can be upgraded
@@ -81,7 +81,7 @@ func save() -> void: # Used to save the game
 	file.close()
 
 func beautify(val: float) -> String: # Will make a big number easier to read
-	var shortcut = ["", "K", "M", "B", "T", "Q", "Qu", "S", "Sp", "O", "N", "D"]
+	var shortcut = ["", "K", "M", "B", "T", "Q", "Qu", "S", "Sp", "O", "N", "D", "U", "Crazy", "Maniac", "When will you stop playing", "Where is your life", "Do you even have a life", "You dont have a life"]
 	var length = beautifyHelper(val, -1)
 	return "%s %s" % [floor(val / (pow(10,(length - (length % 3) - 3)))) / 1000, shortcut[floor(length / 3)]]
 
