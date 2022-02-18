@@ -93,7 +93,7 @@ margin_right = 418.0
 margin_bottom = 51.0
 rect_min_size = Vector2( 0, 51 )
 theme = ExtResource( 5 )
-text = "Purchase 10 more boxes for %s"
+text = "Purchase 5 more boxes for %s"
 __meta__ = {
 "_edit_use_anchors_": false
 }

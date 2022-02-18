@@ -115,4 +115,4 @@ func box_number(level: int = 0) -> int: # Returns the number of boxes that are a
 	return _count
 
 func box_number_cost() -> float: # Returns the current cost for a new box
-	return floor(pow(10, box_limit / 10)) 
+	return floor(pow(10, (box_limit / 5) + 1)) 
