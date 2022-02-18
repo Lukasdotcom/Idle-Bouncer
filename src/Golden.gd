@@ -33,7 +33,7 @@ func _ready_cookie() -> void: # Used to get the cookie ready
 func _on_Button_button_up() -> void: # Starts the golden effect
 	$Button.hide()
 	timeText.show()
-	var _choice = _rng.randi_range(0, 4)
+	var _choice = _rng.randi_range(0, 3)
 	if _choice == 0: # A x7 multiplier for 77 seconds
 		time_left = 77
 		label.text = "x7 multiplier"
@@ -42,7 +42,7 @@ func _on_Button_button_up() -> void: # Starts the golden effect
 		time_left = 7
 		label.text = "x77 multiplier"
 		Data.multiplier = 77
-	elif _choice == 2 or _choice == 3: # Will allow for duplicated balls to duplicate for 60 seconds.
+	elif _choice == 2: # Will allow for duplicated balls to duplicate for 60 seconds.
 		time_left = 30
 		label.text = "Duplicating Duplicators"
 		Data.duplicaters_duplicate = true
