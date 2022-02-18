@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/black.png" type="Texture" id=1]
 [ext_resource path="res://src/Main.gd" type="Script" id=2]
+[ext_resource path="res://src/Box Number.gd" type="Script" id=3]
 [ext_resource path="res://src/MPS Calculator.gd" type="Script" id=4]
 [ext_resource path="res://assets/main_theme.tres" type="Theme" id=5]
 [ext_resource path="res://src/spinner.tscn" type="PackedScene" id=6]
@@ -67,14 +68,54 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 105.0
-margin_bottom = 31.0
+margin_right = 422.0
+margin_bottom = 92.0
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
-margin_right = 105.0
+margin_right = 422.0
 margin_bottom = 31.0
 theme = ExtResource( 5 )
 text = "Box Shop"
+
+[node name="Box Number" type="Control" parent="ScrollContainer/VBoxContainer"]
+margin_top = 35.0
+margin_right = 422.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 422, 57 )
+theme = ExtResource( 5 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buy" type="Button" parent="ScrollContainer/VBoxContainer/Box Number"]
+margin_right = 418.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 0, 51 )
+theme = ExtResource( 5 )
+text = "Purchase 10 more boxes for %s"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="PopupDialog" parent="ScrollContainer/VBoxContainer/Box Number"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -366.0
+margin_bottom = 51.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Earnings" type="Label" parent="ScrollContainer/VBoxContainer/Box Number/Popup"]
+margin_left = 12.0
+margin_top = 11.0
+margin_right = 363.0
+margin_bottom = 45.0
+text = "You have %s of %s boxes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Ball" type="ScrollContainer" parent="."]
 visible = false
@@ -162,6 +203,9 @@ wait_time = 0.25
 autostart = true
 script = ExtResource( 4 )
 
+[connection signal="button_up" from="ScrollContainer/VBoxContainer/Box Number/Buy" to="ScrollContainer/VBoxContainer/Box Number" method="_on_Buy_button_up"]
+[connection signal="mouse_entered" from="ScrollContainer/VBoxContainer/Box Number/Buy" to="ScrollContainer/VBoxContainer/Box Number" method="_on_Buy_mouse_entered"]
+[connection signal="mouse_exited" from="ScrollContainer/VBoxContainer/Box Number/Buy" to="ScrollContainer/VBoxContainer/Box Number" method="_on_Buy_mouse_exited"]
 [connection signal="button_up" from="Save Button" to="." method="_on_Save_Button_button_up"]
 [connection signal="button_up" from="Reset" to="." method="_on_Reset_button_up"]
 [connection signal="timeout" from="Save" to="." method="_on_Save_timeout"]

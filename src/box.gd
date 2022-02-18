@@ -15,6 +15,7 @@ func _ready() -> void:
 			Data.first_animation = startAnimation
 		id = [animation.current_animation_position - Data.first.current_animation_position + Data.first_animation, level]
 		Data.boxes.append(id)
+		Data.money += 0
 		var _sprite: Sprite = $Node2D/Sprite
 		_sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
 
@@ -35,4 +36,5 @@ func delete() -> void:
 				Data.first = x.animation
 				Data.first_animation = x.startAnimation
 				break
+	Data.money += 0
 	self.queue_free()

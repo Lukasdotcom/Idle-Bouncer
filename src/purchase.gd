@@ -48,7 +48,7 @@ func update_interface() -> void: # Updates the buttons data
 		button.text = "Buy Level %s for %s" % [level, Data.beautify(Data.cost[level])]
 		earnings.text = "%s money per hit" % [Data.beautify(Data.earnings[level])]
 		number.text = "You have %s" % Data.box_number(level)
-		if Data.cost[level] <= Data.money:
+		if Data.cost[level] <= Data.money and Data.box_number() < Data.box_limit:
 			button.disabled = false
 		else:
 			button.disabled = true
@@ -66,7 +66,7 @@ func _on_Buy_button_up() -> void: # Used to pruchase and then increases the pric
 				Data.spawn_ball(level)
 		update_interface()
 	else:
-		if Data.cost[level] <= Data.money:
+		if Data.cost[level] <= Data.money and Data.box_number() < Data.box_limit:
 			var _cost = Data.cost[level]
 			Data.cost[level] = floor(1.15* Data.cost[level])
 			Data.money -= _cost
@@ -92,5 +92,3 @@ func _on_Sell_button_up() -> void:
 				if x.level == level:
 					x.delete()
 					return
-		if Data.box_number(level) == 1:
-			sell.disabled = true

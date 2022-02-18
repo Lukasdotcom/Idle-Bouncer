@@ -16,6 +16,7 @@ var balls = [[200.0, 10.0]]
 var multiplier = 1
 var speed_multiplier = 1
 var duplicaters_duplicate = false
+var box_limit = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,6 +36,7 @@ func _ready() -> void:
 			balls = _data["balls"]
 			money = _data["money"]
 			cost = _data["cost"]
+			box_limit = _data["box_limit"]
 			ball_upgrades = _data["ball_upgrades"]
 			for x in _data["boxes"]: # Loads every box available
 				var _instance = load("res://src/box.tscn")
@@ -69,6 +71,7 @@ func save() -> void: # Used to save the game
 	var _save_data = to_json({
 		"money" : floor(money),
 		"boxes" : boxes,
+		"box_limit" : box_limit,
 		"cost" : cost,
 		"ball_upgrades" : ball_upgrades,
 		"balls" : balls,
@@ -102,7 +105,7 @@ func spawn_ball(level: int) -> void: # Used to spawn a new ball
 	_instance.level = level
 	get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 
-func box_number(level: int) -> int: # Returns the number of boxes that are at that level. You can also put in 0 to get the number of boxes
+func box_number(level: int = 0) -> int: # Returns the number of boxes that are at that level. You can also put in 0 to get the number of boxes
 	if level == 0:
 		return len(boxes)
 	var _count = 0
@@ -110,3 +113,6 @@ func box_number(level: int) -> int: # Returns the number of boxes that are at th
 		if x[1] == level:
 			_count += 1
 	return _count
+
+func box_number_cost() -> float: # Returns the current cost for a new box
+	return floor(pow(10, box_limit / 10)) 
