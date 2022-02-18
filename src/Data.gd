@@ -32,7 +32,11 @@ func _ready() -> void:
 	if file.file_exists(save_file): # Checks for a save file and then loads all the data from it
 		file.open(save_file, File.READ)
 		var _data = parse_json(file.get_as_text())
-		if _data["version"] == "v0.5.0": # Loads the save
+		if _data["version"] == "v0.5.0":
+			for x in range(15):
+				_data["cost"].append(earnings.pop_back())
+			_data["version"] = "v0.5.1"
+		if _data["version"] == "v0.5.1": # Loads the save
 			balls = _data["balls"]
 			money = _data["money"]
 			cost = _data["cost"]
@@ -75,7 +79,7 @@ func save() -> void: # Used to save the game
 		"cost" : cost,
 		"ball_upgrades" : ball_upgrades,
 		"balls" : balls,
-		"version" : "v0.5.0"
+		"version" : "v0.5.1"
 	})
 	file.store_string(_save_data)
 	file.close()
