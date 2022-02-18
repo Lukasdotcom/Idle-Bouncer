@@ -47,7 +47,7 @@ func _on_Button_button_up() -> void: # Starts the golden effect
 		label.text = "Duplicating Duplicators"
 		Data.duplicaters_duplicate = true
 	else:
-		time_left = 55
+		time_left = 33
 		label.text = "x3 Speed"
 		Data.speed_multiplier = 3
 	label.show()
