@@ -3,6 +3,7 @@ onready var _vBoxContainer: VBoxContainer = $ScrollContainer/VBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Data.start()
 	update_interface()
 	Data.connect("update_game_interface", self, "update_interface")
 	Data.connect("ball_upgrades", self, "ball_upgrades")

@@ -6,8 +6,8 @@ var first
 var first_animation
 const save_file = "user://save.json"
 var money = 0.0 setget change_money
-var earnings = [0, 10, 50, 400, 2500, 14000, 85000]
-var cost = [0, 10, 50, 500, 4500, 60000, 590000]
+var earnings = []
+var cost = []
 const additional_boxes = 24
 var number_of_balls = 0
 var boxes = []
@@ -20,10 +20,15 @@ var box_limit = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	pass
+
+func start() -> void: # Loads starting loader
+	cost = [0, 10, 50, 500, 4500, 60000, 590000]
+	earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 	# Adds additional boxes
 	var _previous_earnings = earnings[-1]
 	var _previous_cost = cost[-1]
-	for x in range(additional_boxes):
+	for _x in range(additional_boxes):
 		_previous_earnings *= 6.04
 		_previous_cost *= 12.75
 		earnings.append(floor(_previous_earnings))
@@ -33,7 +38,7 @@ func _ready() -> void:
 		file.open(save_file, File.READ)
 		var _data = parse_json(file.get_as_text())
 		if _data["version"] == "v0.5.0":
-			for x in range(15):
+			for _x in range(15):
 				_data["cost"].append(earnings.pop_back())
 			_data["version"] = "v0.5.1"
 		if _data["version"] == "v0.5.1": # Loads the save
@@ -42,6 +47,7 @@ func _ready() -> void:
 			cost = _data["cost"]
 			box_limit = _data["box_limit"]
 			ball_upgrades = _data["ball_upgrades"]
+			boxes = []
 			for x in _data["boxes"]: # Loads every box available
 				var _instance = load("res://src/box.tscn")
 				_instance = _instance.instance()
@@ -50,6 +56,13 @@ func _ready() -> void:
 				_instance.position = Vector2(512, 300)
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 		else: # Runs info for when no save is found
+			balls = [[200.0, 10.0]]
+			money = 0.0
+			box_limit = 10
+			ball_upgrades = false
+			boxes = []
+			first = null
+			first_animation = null
 			var _instance = load("res://src/box.tscn")
 			_instance = _instance.instance()
 			_instance.level = 1
@@ -98,10 +111,11 @@ func reset() -> void: # Used to reset the game
 	var file = File.new()
 	file.open(save_file, File.WRITE)
 	var _save_data = to_json({
-		"version" : "empty"
+		"version" : "null"
 	})
 	file.store_string(_save_data)
 	file.close()
+	get_tree().change_scene("res://src/Main.tscn")
 
 func spawn_ball(level: int) -> void: # Used to spawn a new ball
 	var _instance = load("res://src/ball.tscn")
