@@ -16,7 +16,8 @@ func _on_Calculator_timeout() -> void:
 	for x in previous_earnings:
 		_total += x
 	# Calculates the average earning and updates the UI
-	get_node("../Money Per Second").text = "MPS: %s" % Data.beautify(_total / len(previous_earnings) * 4.0)
+	Data.MPS = _total / len(previous_earnings) * 4.0
+	get_node("../Money Per Second").text = "MPS: %s" % Data.beautify(Data.MPS)
 	# Adds data for the next quarter seconds
 	previous_earnings.append(0)
 	# Checks if the previous earnings list is too long and if it is removes an element from the list
