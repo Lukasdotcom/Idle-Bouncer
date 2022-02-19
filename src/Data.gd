@@ -45,7 +45,7 @@ func start() -> void: # Loads starting loader
 		if _data["version"] == "v0.5.1":
 			_data["MPS"] = 0
 			_data["time"] = 100
-			_data["version"] = "v0.5.1"
+			_data["version"] = "v0.5.2"
 		if _data["version"] == "v0.5.2": # Loads the save
 			balls = _data["balls"]
 			money = _data["money"] + floor((OS.get_system_time_secs() - _data["time"]) * _data["MPS"] / 10.0)
