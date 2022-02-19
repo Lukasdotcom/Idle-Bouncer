@@ -17,6 +17,7 @@ var multiplier = 1
 var speed_multiplier = 1
 var duplicaters_duplicate = false
 var box_limit = 10
+var MPS = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,9 +42,13 @@ func start() -> void: # Loads starting loader
 			for _x in range(15):
 				_data["cost"].append(earnings.pop_back())
 			_data["version"] = "v0.5.1"
-		if _data["version"] == "v0.5.1": # Loads the save
+		if _data["version"] == "v0.5.1":
+			_data["MPS"] = 0
+			_data["time"] = 100
+			_data["version"] = "v0.5.1"
+		if _data["version"] == "v0.5.2": # Loads the save
 			balls = _data["balls"]
-			money = _data["money"]
+			money = _data["money"] + floor((OS.get_system_time_secs() - _data["time"]) * _data["MPS"] / 10.0)
 			cost = _data["cost"]
 			box_limit = _data["box_limit"]
 			ball_upgrades = _data["ball_upgrades"]
@@ -56,6 +61,7 @@ func start() -> void: # Loads starting loader
 				_instance.position = Vector2(512, 300)
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 		else: # Runs info for when no save is found
+			MPS = 0
 			balls = [[200.0, 10.0]]
 			money = 0.0
 			box_limit = 10
@@ -92,7 +98,9 @@ func save() -> void: # Used to save the game
 		"cost" : cost,
 		"ball_upgrades" : ball_upgrades,
 		"balls" : balls,
-		"version" : "v0.5.1"
+		"MPS" : MPS,
+		"time" : OS.get_system_time_secs(),
+		"version" : "v0.5.2"
 	})
 	file.store_string(_save_data)
 	file.close()
