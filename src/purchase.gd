@@ -7,25 +7,24 @@ onready var popup = $Popup
 onready var sell = $Sell
 
 var level: int = 1
-var ball: bool = false
+var types: String = "box"
 var cost: float # Stores the cost for the upgrade or purchase
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if not ball:
+	if types == "box":
 		if Data.cost.size() <= level or Data.earnings.size() <= level: # Makes sure that this is not an invalid level
 			self.queue_free()
 		else:
 			sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
 			update_interface()
-			Data.connect("update_game_interface", self, "update_interface")
 	else:
 		sell.hide()
-		Data.connect("update_game_interface", self, "update_interface")
-		update_interface()
+	update_interface()
+	Data.connect("update_game_interface", self, "update_interface")
 
 func update_interface() -> void: # Updates the buttons data
-	if ball:
+	if types == "ball":
 		if len(Data.balls) >= level:
 			cost = Data.balls[level-1][1]
 			button.text = "Upgrade Ball #%s for %s" % [level, Data.beautify(cost)]
@@ -36,6 +35,14 @@ func update_interface() -> void: # Updates the buttons data
 			self.show()
 		else:
 			self.hide()
+		if cost <= Data.money:
+			button.disabled = false
+		else:
+			button.disabled = true
+	elif types == "golden":
+		# Formula for calculating the cost
+		cost = pow(10, log(Data.goldenStartChance  / -0.003)/log(0.9)+6)
+		button.text = "Golden Spawn Speed for %s" % Data.beautify(cost)
 		if cost <= Data.money:
 			button.disabled = false
 		else:
@@ -54,7 +61,7 @@ func update_interface() -> void: # Updates the buttons data
 			button.disabled = true
 
 func _on_Buy_button_up() -> void: # Used to pruchase and then increases the price when purchased
-	if ball: # Checks if a ball is being purchased
+	if types == "ball": # Checks if a ball is being purchased
 		if cost <= Data.money:
 			if len(Data.balls) >= level:
 				Data.balls[level - 1][0] = floor(Data.balls[level - 1][0] * 1.075)
@@ -64,6 +71,13 @@ func _on_Buy_button_up() -> void: # Used to pruchase and then increases the pric
 				Data.balls.append([200.0, cost * 10.0])
 				Data.money -= cost
 				Data.spawn_ball(level)
+		update_interface()
+	elif types == "golden":
+		if cost <= Data.money:
+			Data.money -= cost
+			var _increase = Data.goldenStartChance * -0.1
+			Data.goldenStartChance *= 0.9
+			Data.goldenChance += _increase
 		update_interface()
 	else:
 		if Data.cost[level] <= Data.money and Data.box_number() < Data.box_limit:
@@ -77,7 +91,7 @@ func _on_Buy_button_up() -> void: # Used to pruchase and then increases the pric
 			get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 
 func _on_Buy_mouse_entered() -> void:
-	if not ball:
+	if types == "box":
 		popup.show()
 
 func _on_Buy_mouse_exited() -> void:

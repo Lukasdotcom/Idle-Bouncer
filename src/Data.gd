@@ -1,6 +1,7 @@
 extends Node2D
 signal update_game_interface # Signal for when to update the UI
 signal ball_upgrades # Signal for when balls can be upgraded
+signal golden_upgrades
 
 var first
 var first_animation
@@ -11,8 +12,8 @@ var cost = []
 const additional_boxes = 24
 var number_of_balls = 0
 var boxes = []
-var upgrades_amount = {"ball" : 1000}
-var upgrades = {"ball" : false} # Used to check if balls can be upgraded
+var upgrades_amount = {"ball" : 1000, "golden" : 1000000}
+var upgrades = {"ball" : false, "golden" : false} # Used to check if balls can be upgraded
 var balls = [[200.0, 10.0]]
 var multiplier = 1
 var speed_multiplier = 1
@@ -54,7 +55,7 @@ func start() -> void: # Loads starting loader
 			_data["goldenStartChance"] = -0.003
 			_data["goldenIncrease"] = 0.00001
 			_data["goldenChance"] = -0.003
-			_data["upgrades"] = {"balls" : _data["ball_upgrades"]}
+			_data["upgrades"] = {"balls" : _data["ball_upgrades"], "golden" : false}
 			_data["version"] = "v0.6.0"
 		if _data["version"] == "v0.6.0": # Loads the save
 			goldenChance = _data["goldenChance"]
@@ -73,8 +74,8 @@ func start() -> void: # Loads starting loader
 				_instance.startAnimation = x[0]
 				_instance.position = Vector2(512, 300)
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
-
 		else: # Runs info for when no save is found
+			upgrades = {"ball" : false, "golden" : false}
 			goldenChance = -0.003
 			goldenIncrease = 0.00001
 			goldenStartChance = -0.003
