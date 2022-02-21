@@ -52,12 +52,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-
 [node name="Second" type="Timer" parent="."]
-one_shot = true
+autostart = true
 
 [connection signal="button_up" from="Button" to="." method="_on_Button_button_up"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Second" to="." method="_on_Second_timeout"]

@@ -1,25 +1,18 @@
 extends Node2D
 var _rng = RandomNumberGenerator.new()
-onready var timer = $Timer
 onready var label = $Label
 onready var timeText = $time
 onready var second = $Second
 var time_left = 0
+var cookieExists = false
 
 func _ready() -> void:
 	_rng.randomize()
 	self.scale = Vector2(0.6, 0.6)
 	_ready_cookie()
 
-func _random_spawn_time() -> float: # Will return a random amount of time in which the golden will spawn
-	var _x = _rng.randf()
-	return 300 + 600 * _x
-
-func _on_Timer_timeout() -> void: # Shows a golden circle somewhere random
-	self.position = Vector2(_rng.randf() * 824 + 100, _rng.randf() * 400 + 100)
-	self.show()
-
 func _ready_cookie() -> void: # Used to get the cookie ready
+	cookieExists = false
 	Data.multiplier = 1
 	Data.speed_multiplier = 1
 	Data.duplicaters_duplicate = false
@@ -27,8 +20,8 @@ func _ready_cookie() -> void: # Used to get the cookie ready
 	label.hide()
 	timeText.hide()
 	$Button.show()
-	timer.wait_time = _random_spawn_time()
-	timer.start()
+	Data.goldenChance = Data.goldenStartChance
+	second.start()
 
 func _on_Button_button_up() -> void: # Starts the golden effect
 	$Button.hide()
@@ -52,16 +45,23 @@ func _on_Button_button_up() -> void: # Starts the golden effect
 		Data.speed_multiplier = 3
 	label.show()
 	_update_circle()
+	cookieExists = true
 	second.start()
 
 
 func _on_Second_timeout() -> void:
-	time_left -= 1
-	if time_left > 0:
-		second.start()
-		_update_circle()
+	if cookieExists: # Checks if the cookie exists or not
+		time_left -= 1
+		if time_left > 0:
+			_update_circle()
+		else:
+			_ready_cookie()
 	else:
-		_ready_cookie()
+		if _rng.randf() < Data.goldenChance:
+			self.position = Vector2(_rng.randf() * 824 + 100, _rng.randf() * 400 + 100)
+			self.show()
+			second.stop()
+		Data.goldenChance += Data.goldenIncrease
 
 func _update_circle() -> void:
 	timeText.text = str(time_left)

@@ -18,6 +18,9 @@ var speed_multiplier = 1
 var duplicaters_duplicate = false
 var box_limit = 10
 var MPS = 0.0
+var goldenChance = -0.003
+var goldenStartChance = -0.003
+var goldenIncrease = 0.00001
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
