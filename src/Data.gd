@@ -49,7 +49,15 @@ func start() -> void: # Loads starting loader
 			_data["MPS"] = 0
 			_data["time"] = 100
 			_data["version"] = "v0.5.2"
-		if _data["version"] == "v0.5.2": # Loads the save
+		if _data["version"] == "v0.5.2":
+			_data["goldenStartChance"] = -0.003
+			_data["goldenIncrease"] = 0.00001
+			_data["goldenChance"] = -0.003
+			_data["version"] = "v0.6.0"
+		if _data["version"] == "v0.6.0": # Loads the save
+			goldenChance = _data["goldenChance"]
+			goldenIncrease = _data["goldenIncrease"]
+			goldenStartChance = _data["goldenStartChance"]
 			balls = _data["balls"]
 			money = _data["money"] + floor((OS.get_system_time_secs() - _data["time"]) * _data["MPS"] / 10.0)
 			cost = _data["cost"]
@@ -64,6 +72,9 @@ func start() -> void: # Loads starting loader
 				_instance.position = Vector2(512, 300)
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 		else: # Runs info for when no save is found
+			goldenChance = -0.003
+			goldenIncrease = 0.00001
+			goldenStartChance = -0.003
 			MPS = 0
 			balls = [[200.0, 10.0]]
 			money = 0.0
@@ -103,7 +114,10 @@ func save() -> void: # Used to save the game
 		"balls" : balls,
 		"MPS" : MPS,
 		"time" : OS.get_system_time_secs(),
-		"version" : "v0.5.2"
+		"goldenStartChance" : goldenStartChance,
+		"goldenIncrease" : goldenIncrease,
+		"goldenChance" : goldenChance,
+		"version" : "v0.6.0"
 	})
 	file.store_string(_save_data)
 	file.close()
