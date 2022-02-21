@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/main_theme.tres" type="Theme" id=1]
 [ext_resource path="res://src/purchase.gd" type="Script" id=2]
-[ext_resource path="res://assets/white.png" type="Texture" id=3]
 
 [node name="purchase" type="Control"]
 margin_right = 422.0
@@ -39,33 +38,49 @@ __meta__ = {
 [node name="Popup" type="PopupDialog" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -372.0
+margin_left = -422.0
 margin_bottom = 93.0
+grow_horizontal = 0
+grow_vertical = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Popup"]
-position = Vector2( 23, 28 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
-
 [node name="Earnings" type="Label" parent="Popup"]
-margin_left = 49.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -197.0
 margin_top = 11.0
-margin_right = 363.0
+margin_right = -10.0
 margin_bottom = 45.0
+grow_horizontal = 0
 text = "%s money per hit"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Number" type="Label" parent="Popup"]
-margin_left = 13.0
-margin_top = 56.0
-margin_right = 327.0
-margin_bottom = 90.0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_top = -41.0
+margin_right = -11.0
+margin_bottom = -7.0
+grow_horizontal = 0
 text = "You have %s"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="ColorRect" parent="Popup"]
+margin_left = 8.0
+margin_top = 9.0
+margin_right = 48.0
+margin_bottom = 49.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

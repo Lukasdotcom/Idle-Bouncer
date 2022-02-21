@@ -16,9 +16,10 @@ func _ready() -> void:
 		if Data.cost.size() <= level or Data.earnings.size() <= level: # Makes sure that this is not an invalid level
 			self.queue_free()
 		else:
-			sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
+			sprite.color = Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1)
 			update_interface()
 	else:
+		sprite.hide()
 		sell.hide()
 	update_interface()
 	Data.connect("update_game_interface", self, "update_interface")
@@ -57,6 +58,8 @@ func update_interface() -> void: # Updates the buttons data
 	elif types == "goldenL":
 		cost = pow(10, log(Data.goldenLength)/log(1.2)+12)
 		button.text = "Golden Length increase for %s" % Data.beautify(cost)
+		earnings.text = "You are at x%s length" % Data.beautify(Data.goldenLength)
+		number.text = "Upgrade to x%s" % Data.beautify(Data.goldenLength * 1.2)
 		if cost <= Data.money:
 			button.disabled = false
 		else:
@@ -64,6 +67,8 @@ func update_interface() -> void: # Updates the buttons data
 	elif types == "goldenM":
 		cost = pow(10, log(Data.goldenMagnitude)/log(1.2)+12) * 5 
 		button.text = "Golden Magnitude increase for %s" % Data.beautify(cost)
+		earnings.text = "You are at x%s bonus" % Data.beautify(Data.goldenMagnitude)
+		number.text = "Upgrade to x%s" % Data.beautify(Data.goldenMagnitude * 1.2)
 		if cost <= Data.money:
 			button.disabled = false
 		else:
@@ -136,8 +141,14 @@ func _on_Buy_button_up() -> void: # Used to pruchase and then increases the pric
 			get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 
 func _on_Buy_mouse_entered() -> void:
-	if types == "box":
+	if types in ["goldenL", "goldenM"]:
 		popup.show()
+		popup.rect_size.x = earnings.rect_size.x + 20
+		popup.rect_position.x = 1024 - popup.rect_size.x
+	elif types == "box":
+		popup.show()
+		popup.rect_size.x = earnings.rect_size.x + sprite.rect_size.x + 30
+		popup.rect_position.x = 1024 - popup.rect_size.x
 
 func _on_Buy_mouse_exited() -> void:
 	popup.hide()
