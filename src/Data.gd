@@ -55,7 +55,7 @@ func start() -> void: # Loads starting loader
 			_data["goldenStartChance"] = -0.003
 			_data["goldenIncrease"] = 0.00001
 			_data["goldenChance"] = -0.003
-			_data["upgrades"] = {"balls" : _data["ball_upgrades"], "golden" : false}
+			_data["upgrades"] = {"ball" : _data["ball_upgrades"], "golden" : false}
 			_data["version"] = "v0.6.0"
 		if _data["version"] == "v0.6.0": # Loads the save
 			goldenChance = _data["goldenChance"]
