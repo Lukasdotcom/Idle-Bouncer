@@ -12,7 +12,8 @@ var cost = []
 const additional_boxes = 24
 var number_of_balls = 0
 var boxes = []
-var upgrades_amount = {"ball" : 1000, "golden" : 1000000}
+var greatest_box = 0 # Stores the highest level box
+var upgrades_amount = {"ball" : 1000, "golden" : 1000000} # Stores the amount of money needed to unlock upgrade
 var upgrades = {"ball" : false, "golden" : false} # Used to check if balls can be upgraded
 var balls = [[200.0, 10.0]]
 var multiplier = 1
@@ -67,12 +68,15 @@ func start() -> void: # Loads starting loader
 			box_limit = _data["box_limit"]
 			upgrades = _data["upgrades"]
 			boxes = []
+			greatest_box = 0
 			for x in _data["boxes"]: # Loads every box available
 				var _instance = load("res://src/box.tscn")
 				_instance = _instance.instance()
 				_instance.level = x[1]
 				_instance.startAnimation = x[0]
 				_instance.position = Vector2(512, 300)
+				if greatest_box < x[1]:
+					greatest_box = x[1]
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 		else: # Runs info for when no save is found
 			upgrades = {"ball" : false, "golden" : false}
@@ -86,6 +90,7 @@ func start() -> void: # Loads starting loader
 			for x in upgrades:
 				upgrades[x] = false
 			boxes = []
+			greatest_box = 1
 			first = null
 			first_animation = null
 			var _instance = load("res://src/box.tscn")

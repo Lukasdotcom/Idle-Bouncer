@@ -59,6 +59,10 @@ func update_interface() -> void: # Updates the buttons data
 			button.disabled = false
 		else:
 			button.disabled = true
+		if level > Data.greatest_box + 1 and Data.cost[level] >= Data.money:
+			self.visible = false
+		else:
+			self.visible = true
 
 func _on_Buy_button_up() -> void: # Used to pruchase and then increases the price when purchased
 	if types == "ball": # Checks if a ball is being purchased
@@ -81,9 +85,14 @@ func _on_Buy_button_up() -> void: # Used to pruchase and then increases the pric
 		update_interface()
 	else:
 		if Data.cost[level] <= Data.money and Data.box_number() < Data.box_limit:
+			# Recalculates the greatest box.
+			if Data.greatest_box < level:
+				Data.greatest_box = level
+			# Spends the money for the box.
 			var _cost = Data.cost[level]
 			Data.cost[level] = floor(1.15* Data.cost[level])
 			Data.money -= _cost
+			# Spawns the box.
 			var _instance = load("res://src/box.tscn")
 			_instance = _instance.instance()
 			_instance.level = level
