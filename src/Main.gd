@@ -1,5 +1,6 @@
 extends Node2D
-onready var _vBoxContainer: VBoxContainer = $ScrollContainer/VBoxContainer
+onready var _vBoxContainer: VBoxContainer = $TabContainer/Boxes/VBoxContainer
+onready var _tab: TabContainer = $TabContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,8 +15,8 @@ func _ready() -> void:
 			continue
 		_instance = _purchase.instance()
 		_instance.level = x
-		_vBoxContainer.call_deferred("add_child", _instance)
-	if Data.ball_upgrades: # Checks if ball upgrades is already on
+		$TabContainer/Boxes/VBoxContainer.call_deferred("add_child", _instance)
+	if Data.upgrades["ball"]: # Checks if ball upgrades is already on
 		ball_upgrades()
 
 
@@ -26,15 +27,10 @@ func _on_Reset_button_up() -> void: # Used to reset the game
 	Data.reset()
 
 func ball_upgrades() -> void: # Used to enable the ball upgrades
-	var scroll_container = $Ball/VBoxContainer
-	$Ball.show()
-	$ScrollContainer.rect_size.y = 369
-	var _ball = load("res://src/purchase.tscn")
-	for x in range(1, 20):
-		var _instance = _ball.instance()
-		_instance.level = x
-		_instance.ball = true
-		scroll_container.call_deferred("add_child", _instance)
+	var _shop = load("res://src/shopTab.tscn")
+	_shop = _shop.instance()
+	_shop.label = "Ball"
+	_tab.call_deferred("add_child", _shop)
 
 # Saves the game every 30 seconds and every time the save button is pressed
 func _on_Save_timeout() -> void:

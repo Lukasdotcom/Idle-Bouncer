@@ -11,7 +11,8 @@ var cost = []
 const additional_boxes = 24
 var number_of_balls = 0
 var boxes = []
-var ball_upgrades = false # Used to check if balls can be upgraded
+var upgrades_amount = {"ball" : 1000}
+var upgrades = {"ball" : false} # Used to check if balls can be upgraded
 var balls = [[200.0, 10.0]]
 var multiplier = 1
 var speed_multiplier = 1
@@ -53,6 +54,7 @@ func start() -> void: # Loads starting loader
 			_data["goldenStartChance"] = -0.003
 			_data["goldenIncrease"] = 0.00001
 			_data["goldenChance"] = -0.003
+			_data["upgrades"] = {"balls" : _data["ball_upgrades"]}
 			_data["version"] = "v0.6.0"
 		if _data["version"] == "v0.6.0": # Loads the save
 			goldenChance = _data["goldenChance"]
@@ -62,7 +64,7 @@ func start() -> void: # Loads starting loader
 			money = _data["money"] + floor((OS.get_system_time_secs() - _data["time"]) * _data["MPS"] / 10.0)
 			cost = _data["cost"]
 			box_limit = _data["box_limit"]
-			ball_upgrades = _data["ball_upgrades"]
+			upgrades = _data["upgrades"]
 			boxes = []
 			for x in _data["boxes"]: # Loads every box available
 				var _instance = load("res://src/box.tscn")
@@ -71,6 +73,7 @@ func start() -> void: # Loads starting loader
 				_instance.startAnimation = x[0]
 				_instance.position = Vector2(512, 300)
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
+
 		else: # Runs info for when no save is found
 			goldenChance = -0.003
 			goldenIncrease = 0.00001
@@ -79,7 +82,8 @@ func start() -> void: # Loads starting loader
 			balls = [[200.0, 10.0]]
 			money = 0.0
 			box_limit = 10
-			ball_upgrades = false
+			for x in upgrades:
+				upgrades[x] = false
 			boxes = []
 			first = null
 			first_animation = null
@@ -98,9 +102,10 @@ func start() -> void: # Loads starting loader
 func change_money(value: float) -> void: # Changes the score
 	money = value
 	emit_signal("update_game_interface")
-	if not ball_upgrades and value > 1000: # Checks if ball's can be purchased.
-		ball_upgrades = true
-		emit_signal("ball_upgrades")
+	for x in upgrades:
+		if not upgrades[x] and value > upgrades_amount[x]: # Checks if ball's can be purchased.
+			upgrades[x] = true
+			emit_signal(x+"_upgrades")
 
 func save() -> void: # Used to save the game
 	var file = File.new()
@@ -110,7 +115,7 @@ func save() -> void: # Used to save the game
 		"boxes" : boxes,
 		"box_limit" : box_limit,
 		"cost" : cost,
-		"ball_upgrades" : ball_upgrades,
+		"upgrades" : upgrades,
 		"balls" : balls,
 		"MPS" : MPS,
 		"time" : OS.get_system_time_secs(),

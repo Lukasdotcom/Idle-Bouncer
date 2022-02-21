@@ -58,26 +58,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_top = 62.0
-margin_right = 495.0
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_top = 65.0
+margin_right = 468.0
 margin_bottom = 600.0
 theme = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="Boxes" type="ScrollContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 49.0
+margin_right = -4.0
+margin_bottom = -4.0
+theme = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Boxes"]
 margin_right = 422.0
 margin_bottom = 92.0
+rect_min_size = Vector2( 422, 92 )
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/Boxes/VBoxContainer"]
 margin_right = 422.0
 margin_bottom = 31.0
 theme = ExtResource( 5 )
 text = "Box Shop"
 
-[node name="Box Number" type="Control" parent="ScrollContainer/VBoxContainer"]
+[node name="Box Number" type="Control" parent="TabContainer/Boxes/VBoxContainer"]
 margin_top = 35.0
 margin_right = 422.0
 margin_bottom = 92.0
@@ -88,7 +101,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buy" type="Button" parent="ScrollContainer/VBoxContainer/Box Number"]
+[node name="Buy" type="Button" parent="TabContainer/Boxes/VBoxContainer/Box Number"]
 margin_right = 418.0
 margin_bottom = 51.0
 rect_min_size = Vector2( 0, 51 )
@@ -98,7 +111,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Popup" type="PopupDialog" parent="ScrollContainer/VBoxContainer/Box Number"]
+[node name="Popup" type="PopupDialog" parent="TabContainer/Boxes/VBoxContainer/Box Number"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -366.0
@@ -107,7 +120,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Earnings" type="Label" parent="ScrollContainer/VBoxContainer/Box Number/Popup"]
+[node name="Earnings" type="Label" parent="TabContainer/Boxes/VBoxContainer/Box Number/Popup"]
 margin_left = 12.0
 margin_top = 11.0
 margin_right = 363.0
@@ -116,25 +129,6 @@ text = "You have %s of %s boxes"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Ball" type="ScrollContainer" parent="."]
-visible = false
-margin_top = 431.0
-margin_right = 495.0
-margin_bottom = 600.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Ball"]
-margin_right = 105.0
-margin_bottom = 31.0
-
-[node name="Label" type="Label" parent="Ball/VBoxContainer"]
-margin_right = 40.0
-margin_bottom = 14.0
-theme = ExtResource( 5 )
-text = "Ball Shop"
 
 [node name="Game Field" type="Node2D" parent="."]
 position = Vector2( 250, 0 )
@@ -192,9 +186,9 @@ wait_time = 0.25
 autostart = true
 script = ExtResource( 4 )
 
-[connection signal="button_up" from="ScrollContainer/VBoxContainer/Box Number/Buy" to="ScrollContainer/VBoxContainer/Box Number" method="_on_Buy_button_up"]
-[connection signal="mouse_entered" from="ScrollContainer/VBoxContainer/Box Number/Buy" to="ScrollContainer/VBoxContainer/Box Number" method="_on_Buy_mouse_entered"]
-[connection signal="mouse_exited" from="ScrollContainer/VBoxContainer/Box Number/Buy" to="ScrollContainer/VBoxContainer/Box Number" method="_on_Buy_mouse_exited"]
+[connection signal="button_up" from="TabContainer/Boxes/VBoxContainer/Box Number/Buy" to="TabContainer/Boxes/VBoxContainer/Box Number" method="_on_Buy_button_up"]
+[connection signal="mouse_entered" from="TabContainer/Boxes/VBoxContainer/Box Number/Buy" to="TabContainer/Boxes/VBoxContainer/Box Number" method="_on_Buy_mouse_entered"]
+[connection signal="mouse_exited" from="TabContainer/Boxes/VBoxContainer/Box Number/Buy" to="TabContainer/Boxes/VBoxContainer/Box Number" method="_on_Buy_mouse_exited"]
 [connection signal="button_up" from="Save Button" to="." method="_on_Save_Button_button_up"]
 [connection signal="button_up" from="Reset" to="." method="_on_Reset_button_up"]
 [connection signal="timeout" from="Save" to="." method="_on_Save_timeout"]
