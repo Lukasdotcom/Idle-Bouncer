@@ -24,6 +24,8 @@ var MPS = 0.0
 var goldenChance = -0.003
 var goldenStartChance = -0.003
 var goldenIncrease = 0.000005
+var goldenLength = 1
+var goldenMagnitude = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -56,9 +58,13 @@ func start() -> void: # Loads starting loader
 			_data["goldenStartChance"] = -0.003
 			_data["goldenIncrease"] = 0.000005
 			_data["goldenChance"] = -0.003
+			_data["goldenLength"] = 1
+			_data["goldenMagnitude"] = 1
 			_data["upgrades"] = {"ball" : _data["ball_upgrades"], "golden" : false}
 			_data["version"] = "v0.6.0"
 		if _data["version"] == "v0.6.0": # Loads the save
+			goldenLength = _data["goldenLength"]
+			goldenMagnitude = _data["goldenMagnitude"]
 			goldenChance = _data["goldenChance"]
 			goldenIncrease = _data["goldenIncrease"]
 			goldenStartChance = _data["goldenStartChance"]
@@ -79,6 +85,8 @@ func start() -> void: # Loads starting loader
 					greatest_box = x[1]
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 		else: # Runs info for when no save is found
+			goldenLength = 1
+			goldenMagnitude = 1
 			upgrades = {"ball" : false, "golden" : false}
 			goldenChance = -0.003
 			goldenIncrease = 0.000005
@@ -128,6 +136,8 @@ func save() -> void: # Used to save the game
 		"goldenStartChance" : goldenStartChance,
 		"goldenIncrease" : goldenIncrease,
 		"goldenChance" : goldenChance,
+		"goldenLength" : goldenLength,
+		"goldenMagnitude" : goldenMagnitude,
 		"version" : "v0.6.0"
 	})
 	file.store_string(_save_data)

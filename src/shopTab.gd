@@ -19,3 +19,9 @@ func _ready() -> void:
 		_instance = _purchase.instance()
 		_instance.types = "goldenA"
 		$VBoxContainer.call_deferred("add_child", _instance)
+		_instance = _purchase.instance()
+		_instance.types = "goldenL"
+		$VBoxContainer.call_deferred("add_child", _instance)
+		_instance = _purchase.instance()
+		_instance.types = "goldenM"
+		$VBoxContainer.call_deferred("add_child", _instance)

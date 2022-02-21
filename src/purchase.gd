@@ -48,8 +48,22 @@ func update_interface() -> void: # Updates the buttons data
 		else:
 			button.disabled = true
 	elif types == "goldenA":
-		cost = pow(10, log(Data.goldenIncrease  / 0.000005)/log(1.3)+6) * 3
+		cost = pow(10, log(Data.goldenIncrease  / 0.000005)/log(1.22)+6) * 3
 		button.text = "Golden Spawn Acceleration for %s" % Data.beautify(cost)
+		if cost <= Data.money:
+			button.disabled = false
+		else:
+			button.disabled = true
+	elif types == "goldenL":
+		cost = pow(10, log(Data.goldenLength)/log(1.2)+12)
+		button.text = "Golden Length increase for %s" % Data.beautify(cost)
+		if cost <= Data.money:
+			button.disabled = false
+		else:
+			button.disabled = true
+	elif types == "goldenM":
+		cost = pow(10, log(Data.goldenMagnitude)/log(1.2)+12) * 5 
+		button.text = "Golden Magnitude increase for %s" % Data.beautify(cost)
 		if cost <= Data.money:
 			button.disabled = false
 		else:
@@ -93,8 +107,17 @@ func _on_Buy_button_up() -> void: # Used to pruchase and then increases the pric
 	elif types == "goldenA":
 		if cost <= Data.money:
 			Data.money -= cost
-			Data.goldenIncrease *= 1.3
-			print(Data.goldenIncrease)
+			Data.goldenIncrease *= 1.22
+		update_interface()
+	elif types == "goldenL":
+		if cost <= Data.money:
+			Data.money -= cost
+			Data.goldenLength *= 1.2
+		update_interface()
+	elif types == "goldenM":
+		if cost <= Data.money:
+			Data.money -= cost
+			Data.goldenMagnitude *= 1.2
 		update_interface()
 	else:
 		if Data.cost[level] <= Data.money and Data.box_number() < Data.box_limit:
