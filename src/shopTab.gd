@@ -12,7 +12,10 @@ func _ready() -> void:
 			_instance.types = "ball"
 			$VBoxContainer.call_deferred("add_child", _instance)
 	if label == "Golden":
-		var _instance = load("res://src/purchase.tscn")
-		_instance = _instance.instance()
-		_instance.types = "golden"
+		var _purchase = load("res://src/purchase.tscn")
+		var _instance = _purchase.instance()
+		_instance.types = "goldenS"
+		$VBoxContainer.call_deferred("add_child", _instance)
+		_instance = _purchase.instance()
+		_instance.types = "goldenA"
 		$VBoxContainer.call_deferred("add_child", _instance)

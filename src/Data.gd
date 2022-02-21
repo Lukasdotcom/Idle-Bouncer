@@ -23,7 +23,7 @@ var box_limit = 10
 var MPS = 0.0
 var goldenChance = -0.003
 var goldenStartChance = -0.003
-var goldenIncrease = 0.00001
+var goldenIncrease = 0.000005
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -54,7 +54,7 @@ func start() -> void: # Loads starting loader
 			_data["version"] = "v0.5.2"
 		if _data["version"] == "v0.5.2":
 			_data["goldenStartChance"] = -0.003
-			_data["goldenIncrease"] = 0.00001
+			_data["goldenIncrease"] = 0.000005
 			_data["goldenChance"] = -0.003
 			_data["upgrades"] = {"ball" : _data["ball_upgrades"], "golden" : false}
 			_data["version"] = "v0.6.0"
@@ -81,7 +81,7 @@ func start() -> void: # Loads starting loader
 		else: # Runs info for when no save is found
 			upgrades = {"ball" : false, "golden" : false}
 			goldenChance = -0.003
-			goldenIncrease = 0.00001
+			goldenIncrease = 0.000005
 			goldenStartChance = -0.003
 			MPS = 0
 			balls = [[200.0, 10.0]]
@@ -134,7 +134,7 @@ func save() -> void: # Used to save the game
 	file.close()
 
 func beautify(val: float) -> String: # Will make a big number easier to read
-	var shortcut = ["", "K", "M", "B", "T", "Q", "Qu", "S", "Sp", "O", "N", "D", "U", "Crazy", "Maniac", "When will you stop playing", "Where is your life", "Do you even have a life", "You dont have a life"]
+	var shortcut = ["", "K", "M", "B", "T", "Q", "Qu", "S", "Sp", "O", "N", "D", "U", "Crazy", "Maniac", "When will you stop playing", "Where is your life", "Do you even have a life", "You dont have a life", "I'm Done"]
 	var length = beautifyHelper(val, -1)
 	return "%s %s" % [floor(val / (pow(10,(length - (length % 3) - 3)))) / 1000, shortcut[floor(length / 3)]]
 
