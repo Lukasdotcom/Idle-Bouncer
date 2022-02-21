@@ -27,7 +27,6 @@ func _on_Button_button_up() -> void: # Starts the golden effect
 	$Button.hide()
 	timeText.show()
 	var _choice = _rng.randi_range(0, 4)
-	_choice = 4
 	if _choice == 0: # A x7 multiplier for 77 seconds
 		time_left = ceil(77 * Data.goldenLength)
 		Data.multiplier = ceil(7 * Data.goldenMagnitude)
