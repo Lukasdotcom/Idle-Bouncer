@@ -26,7 +26,8 @@ func _ready_cookie() -> void: # Used to get the cookie ready
 func _on_Button_button_up() -> void: # Starts the golden effect
 	$Button.hide()
 	timeText.show()
-	var _choice = _rng.randi_range(0, 3)
+	var _choice = _rng.randi_range(0, 4)
+	_choice = 4
 	if _choice == 0: # A x7 multiplier for 77 seconds
 		time_left = ceil(77 * Data.goldenLength)
 		Data.multiplier = ceil(7 * Data.goldenMagnitude)
@@ -39,11 +40,21 @@ func _on_Button_button_up() -> void: # Starts the golden effect
 		time_left = ceil(30 * Data.goldenLength)
 		label.text = "Duplicating Duplicators"
 		Data.duplicaters_duplicate = true
-	else:
+	elif _choice == 3:
 		time_left = ceil(33 * Data.goldenLength)
 		Data.speed_multiplier = ceil(3 * Data.goldenMagnitude)
 		Data.speed_multiplier = Data.speed_multiplier if Data.speed_multiplier < 10 else 10
 		label.text = "x%s Speed" % Data.speed_multiplier
+	elif _choice == 4:
+		time_left = 3
+		var _money = Data.MPS * 500 * Data.goldenMagnitude
+		Data.money += _money
+		label.text = "+%s money" % Data.beautify(_money)
+	else:
+		time_left = 3
+		var _money = Data.MPS * 300 * Data.goldenMagnitude
+		Data.money += _money
+		label.text = "+%s money" % Data.beautify(_money)
 	label.show()
 	_update_circle()
 	cookieExists = true
