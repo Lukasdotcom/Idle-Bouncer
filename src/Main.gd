@@ -1,5 +1,5 @@
 extends Node2D
-onready var _vBoxContainer: VBoxContainer = $TabContainer/Boxes/VBoxContainer
+onready var _vBoxContainer: VBoxContainer = $TabContainer/Boxes/Boxes/VBoxContainer
 onready var _tab: TabContainer = $TabContainer
 
 # Called when the node enters the scene tree for the first time.
@@ -16,7 +16,7 @@ func _ready() -> void:
 			continue
 		_instance = _purchase.instance()
 		_instance.level = x
-		$TabContainer/Boxes/VBoxContainer.call_deferred("add_child", _instance)
+		$TabContainer/Boxes/Boxes/VBoxContainer.call_deferred("add_child", _instance)
 	if Data.upgrades["ball"]: # Checks if ball upgrades is already on
 		ball_upgrades()
 	if Data.upgrades["golden"]:
