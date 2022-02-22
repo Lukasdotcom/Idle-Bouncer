@@ -91,6 +91,7 @@ func update_interface() -> void: # Updates the buttons data
 			self.visible = true
 
 func _on_Buy_button_up() -> void: # Used to pruchase and then increases the price when purchased
+	button.disabled = true
 	if types == "ball": # Checks if a ball is being purchased
 		if cost <= Data.money:
 			if len(Data.balls) >= level:
@@ -155,6 +156,7 @@ func _on_Buy_mouse_exited() -> void:
 
 func _on_Sell_button_up() -> void:
 	if Data.box_number(level) > 0:
+		sell.disabled = true
 		Data.cost[level] = ceil(Data.cost[level] / 1.15)
 		Data.money += ceil(Data.cost[level] * 0.5)
 		for x in get_node("/root/Main/Game Field").get_children():
