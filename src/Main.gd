@@ -50,8 +50,8 @@ func _on_Save_Button_button_up() -> void:
 
 func _process(delta: float) -> void: # Checks if a button is pressed to change menu
 	if Input.is_action_just_pressed("menu1"):
-		_tab.current_tab = 0
-	elif Input.is_action_just_pressed("menu2"):
 		_tab.current_tab = 1
-	elif Input.is_action_just_pressed("menu3"):
+	elif Input.is_action_just_pressed("menu2"):
 		_tab.current_tab = 2
+	elif Input.is_action_just_pressed("menu3"):
+		_tab.current_tab = 3
