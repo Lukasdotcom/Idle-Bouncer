@@ -33,7 +33,8 @@ func _ready() -> void:
 	update()
 
 func _on_hit(area: Area2D) -> void:
-	var _earnings = Data.earnings[level] * Data.multiplier + (game.disabledTotal / game.enabled)
+	var _earnings = Data.earnings[level] + (game.disabledTotal / game.enabled)
+	_earnings *=  Data.multiplier
 	Data.money += _earnings 
 	get_node("../../MPS Calculator").earnings(_earnings)
 
