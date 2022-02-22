@@ -16,8 +16,12 @@ func _ready() -> void:
 		if Data.cost.size() <= level or Data.earnings.size() <= level: # Makes sure that this is not an invalid level
 			self.queue_free()
 		else:
-			sprite.color = Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1)
-			update_interface()
+			if level > 15:
+				$Popup/Inner.color = Color.from_hsv((120+20*(level-15))/360.0, 0.9, 1, 1)
+				$Popup/Inner.visible = true
+				sprite.color = Color.black
+			else:
+				sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
 	else:
 		sprite.hide()
 		sell.hide()
