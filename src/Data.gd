@@ -62,7 +62,7 @@ func start() -> void: # Loads starting loader
 			_data["upgrades"] = {"ball" : _data["ball_upgrades"], "golden" : false}
 			_data["version"] = "v0.6.0"
 		if _data["version"] == "v0.6.0":
-			_data["performance"] = {"Simulate" : 100, "Show" : 100, "Ball" : 9.5}
+			_data["performance"] = {"Simulate" : 75, "Show" : 100, "Ball" : 9.5}
 			_data["version"] = "v0.6.1"
 		if _data["version"] == "v0.6.1": # Loads the save
 			goldenLength = _data["goldenLength"]

@@ -36,7 +36,8 @@ func _on_hit(body: Node) -> void:
 	var _earnings = Data.earnings[level] + (game.disabledTotal / game.enabled) # Calculates the base earnings
 	_earnings *=  Data.multiplier # Multiplies the global multiplier
 	_earnings *= body.multiplier # Multiplies the balls multiplier
-	Data.money += _earnings 
+	_earnings = ceil(_earnings)
+	Data.money += _earnings
 	get_node("../../MPS Calculator").earnings(_earnings)
 
 func delete() -> void: # Used to delete the box
