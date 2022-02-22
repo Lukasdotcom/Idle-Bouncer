@@ -4,6 +4,7 @@ var show = 1.0
 var visibly = 0.0
 var enabled = 0.0
 var total = 0.0 setget changed
+var disabledTotal = 0.0
 signal update
 
 

@@ -33,7 +33,7 @@ func _ready() -> void:
 	update()
 
 func _on_hit(area: Area2D) -> void:
-	var _earnings = Data.earnings[level] * Data.multiplier / game.enabled * game.total
+	var _earnings = Data.earnings[level] * Data.multiplier + (game.disabledTotal / game.enabled)
 	Data.money += _earnings 
 	get_node("../../MPS Calculator").earnings(_earnings)
 
@@ -57,16 +57,20 @@ func delete() -> void:
 	game.total -= 1
 	self.queue_free()
 
-func update() -> void: # Does all th neccessaary hiding and disabling of physics.
+func update() -> void: # Does all the neccessaary hiding and disabling of physics.
 	if disabled:
 		if game.enabled / game.total < game.simulate or game.simulate == 1:
 			game.enabled += 1
+			game.disabledTotal -= Data.earnings[level]
 			disabled = false
+			self.show()
 			$Node2D/Area2D.collision_mask = 2
 	else:
 		if game.enabled / game.total > game.simulate and game.enabled > 1:
 			game.enabled -= 1
+			game.disabledTotal += Data.earnings[level]
 			disabled = true
+			self.hide()
 			$Node2D/Area2D.collision_mask = 0
 	if invisible:
 		if (game.visibly + 1) / game.total < game.show or game.show == 1:
