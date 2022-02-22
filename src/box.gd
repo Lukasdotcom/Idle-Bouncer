@@ -32,13 +32,14 @@ func _ready() -> void:
 	game.connect("update", self, "update")
 	update()
 
-func _on_hit(area: Area2D) -> void:
-	var _earnings = Data.earnings[level] + (game.disabledTotal / game.enabled)
-	_earnings *=  Data.multiplier
+func _on_hit(body: Node) -> void:
+	var _earnings = Data.earnings[level] + (game.disabledTotal / game.enabled) # Calculates the base earnings
+	_earnings *=  Data.multiplier # Multiplies the global multiplier
+	_earnings *= body.multiplier # Multiplies the balls multiplier
 	Data.money += _earnings 
 	get_node("../../MPS Calculator").earnings(_earnings)
 
-func delete() -> void:
+func delete() -> void: # Used to delete the box
 	if Data.boxes.find(id) != -1:
 		Data.boxes.remove(Data.boxes.find(id))
 	else:
@@ -51,6 +52,7 @@ func delete() -> void:
 				Data.first_animation = x.startAnimation
 				break
 	Data.money += 0
+	# Resets the stats for the box counter
 	if not invisible:
 		game.visibly -= 1
 	if not disabled:
