@@ -55,3 +55,7 @@ func _process(delta: float) -> void: # Checks if a button is pressed to change m
 		_tab.current_tab = 2
 	elif Input.is_action_just_pressed("menu3"):
 		_tab.current_tab = 3
+
+func _on_Export_button_up() -> void:
+	Data.save()
+	get_tree().change_scene("res://src/Export.tscn")

@@ -32,6 +32,8 @@ func _ready() -> void:
 	pass
 
 func start() -> void: # Loads starting loader
+	first = null
+	first_animation = null
 	cost = [0, 10, 50, 500, 4500, 60000, 590000]
 	earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 	# Adds additional boxes

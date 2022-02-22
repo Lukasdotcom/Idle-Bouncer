@@ -245,12 +245,23 @@ texture = ExtResource( 7 )
 autostart = true
 
 [node name="Save Button" type="Button" parent="."]
-margin_left = 666.0
-margin_top = 24.0
-margin_right = 846.0
-margin_bottom = 61.0
+margin_left = 563.0
+margin_top = 25.0
+margin_right = 743.0
+margin_bottom = 62.0
 theme = ExtResource( 5 )
 text = "Save Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Export" type="Button" parent="."]
+margin_left = 781.0
+margin_top = 24.0
+margin_right = 961.0
+margin_bottom = 61.0
+theme = ExtResource( 5 )
+text = "Export/Import"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -285,6 +296,7 @@ script = ExtResource( 4 )
 [connection signal="mouse_exited" from="TabContainer/Boxes/Box Number/Buy" to="TabContainer/Boxes/Box Number" method="_on_Buy_mouse_exited"]
 [connection signal="timeout" from="Game Field/Timer" to="Game Field" method="_on_Timer_timeout"]
 [connection signal="button_up" from="Save Button" to="." method="_on_Save_Button_button_up"]
+[connection signal="button_up" from="Export" to="." method="_on_Export_button_up"]
 [connection signal="button_up" from="Reset" to="." method="_on_Reset_button_up"]
 [connection signal="timeout" from="Save" to="." method="_on_Save_timeout"]
 [connection signal="timeout" from="MPS Calculator" to="MPS Calculator" method="_on_Calculator_timeout"]

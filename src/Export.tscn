@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Export.gd" type="Script" id=1]
+[ext_resource path="res://assets/main_theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/Bold.tres" type="Theme" id=3]
+
+[node name="Export" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 161.0
+margin_right = 305.0
+margin_bottom = 60.0
+theme = ExtResource( 3 )
+text = "Export"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 693.0
+margin_right = 842.0
+margin_bottom = 60.0
+theme = ExtResource( 3 )
+text = "Import"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Return" type="Button" parent="."]
+margin_left = 149.0
+margin_top = 540.0
+margin_right = 333.0
+margin_bottom = 577.0
+text = "Return to Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Load" type="Button" parent="."]
+margin_left = 695.0
+margin_top = 540.0
+margin_right = 879.0
+margin_bottom = 577.0
+text = "Load"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Export" type="TextEdit" parent="."]
+margin_top = 70.0
+margin_right = 500.0
+margin_bottom = 520.0
+readonly = true
+wrap_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Import" type="TextEdit" parent="."]
+margin_left = 524.0
+margin_top = 70.0
+margin_right = 1024.0
+margin_bottom = 520.0
+wrap_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_up" from="Return" to="." method="_on_Return_button_up"]
+[connection signal="button_up" from="Load" to="." method="_on_Load_button_up"]
