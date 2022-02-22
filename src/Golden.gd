@@ -27,10 +27,11 @@ func _on_Button_button_up() -> void: # Starts the golden effect
 	$Button.hide()
 	timeText.show()
 	var _choice = _rng.randi_range(0, 4)
-	if _choice == 0: # A x7 multiplier for 77 seconds
-		time_left = ceil(77 * Data.goldenLength)
-		Data.multiplier = ceil(7 * Data.goldenMagnitude)
-		label.text = "x%s multiplier" % Data.multiplier
+	if _choice == 0:
+		time_left = ceil(7 * Data.goldenLength)
+		Data.multiplier = ceil(200 * Data.goldenMagnitude)
+		Data.speed_multiplier = 0.5
+		label.text = "x%s & 1/2 speed" % Data.multiplier
 	elif _choice == 1: # A x77 multiplier for 7 seconds 
 		time_left = ceil(7 * Data.goldenLength)
 		Data.multiplier = ceil(77 * Data.goldenMagnitude)
@@ -39,11 +40,10 @@ func _on_Button_button_up() -> void: # Starts the golden effect
 		time_left = ceil(30 * Data.goldenLength)
 		label.text = "Duplicating Duplicators"
 		Data.duplicaters_duplicate = true
-	elif _choice == 3:
-		time_left = ceil(33 * Data.goldenLength)
-		Data.speed_multiplier = ceil(3 * Data.goldenMagnitude)
-		Data.speed_multiplier = Data.speed_multiplier if Data.speed_multiplier < 10 else 10
-		label.text = "x%s Speed" % Data.speed_multiplier
+	elif _choice == 3: # A x7 multiplier for 77 seconds
+		time_left = ceil(77 * Data.goldenLength)
+		Data.multiplier = ceil(7 * Data.goldenMagnitude)
+		label.text = "x%s multiplier" % Data.multiplier
 	elif _choice == 4:
 		time_left = 3
 		var _money = Data.MPS * 500 * Data.goldenMagnitude

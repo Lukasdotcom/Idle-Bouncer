@@ -27,10 +27,6 @@ var goldenIncrease = 0.000005
 var goldenLength = 1
 var goldenMagnitude = 1
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
 func start() -> void: # Loads starting loader
 	first = null
 	first_animation = null
