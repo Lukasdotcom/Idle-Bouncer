@@ -28,6 +28,7 @@ var goldenLength = 1
 var goldenMagnitude = 1
 
 func start() -> void: # Loads starting loader
+	number_of_balls = 0
 	first = null
 	first_animation = null
 	cost = [0, 10, 50, 500, 4500, 60000, 590000]
