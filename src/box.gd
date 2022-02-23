@@ -4,6 +4,10 @@ onready var animation = $AnimationPlayer
 var level: int = 1
 var startAnimation: float = 0
 var id = [0, 1]
+var disabled = false
+var invisible = false
+onready var game = get_node("/root/Main/Game Field")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if Data.cost.size() <= level or Data.earnings.size() <= level: # Makes sure that this is not an invalid level
@@ -22,13 +26,21 @@ func _ready() -> void:
 			_sprite.set_modulate(Color.from_hsv((120+20*(level-15))/360.0, 0.9, 1, 1))
 		else:
 			_sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
+	game.enabled += 1
+	game.visibly += 1
+	game.total += 1
+	game.connect("update", self, "update")
+	update()
 
-func _on_hit(area: Area2D) -> void:
-	var _earnings = Data.earnings[level] * Data.multiplier
+func _on_hit(body: Node) -> void:
+	var _earnings = Data.earnings[level] + (game.disabledTotal / game.enabled) # Calculates the base earnings
+	_earnings *=  Data.multiplier # Multiplies the global multiplier
+	_earnings *= body.multiplier # Multiplies the balls multiplier
+	_earnings = ceil(_earnings)
 	Data.money += _earnings
 	get_node("../../MPS Calculator").earnings(_earnings)
 
-func delete() -> void:
+func delete() -> void: # Used to delete the box
 	if Data.boxes.find(id) != -1:
 		Data.boxes.remove(Data.boxes.find(id))
 	else:
@@ -41,4 +53,34 @@ func delete() -> void:
 				Data.first_animation = x.startAnimation
 				break
 	Data.money += 0
+	# Resets the stats for the box counter
+	if not invisible:
+		game.visibly -= 1
+	if not disabled:
+		game.enabled -= 1
+	game.total -= 1
 	self.queue_free()
+
+func update() -> void: # Does all the neccessaary hiding and disabling of physics.
+	if disabled:
+		if game.enabled / game.total < game.simulate or game.simulate == 1:
+			game.enabled += 1
+			game.disabledTotal -= Data.earnings[level]
+			disabled = false
+			$Node2D/Area2D.collision_mask = 2
+	else:
+		if game.enabled / game.total > game.simulate and game.enabled > 1:
+			game.enabled -= 1
+			game.disabledTotal += Data.earnings[level]
+			disabled = true
+			$Node2D/Area2D.collision_mask = 0
+	if invisible:
+		if (game.visibly + 1) / game.total < game.show or game.show == 1:
+			game.visibly += 1
+			invisible = false
+			self.show()
+	else:
+		if game.visibly / game.total > game.show:
+			game.visibly -= 1
+			invisible = true
+			self.hide()

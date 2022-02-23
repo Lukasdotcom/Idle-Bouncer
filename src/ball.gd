@@ -5,6 +5,7 @@ var speed: int = 200
 var level: int = 1
 var existence_length: int = 0
 var _rng = RandomNumberGenerator.new()
+var multiplier: int = 1 # Stores the amount of fake balls to simulate as a multiplier
 
 func _ready() -> void:
 	Data.number_of_balls += 1
@@ -54,7 +55,7 @@ func _physics_process(delta: float) -> void: # Makes sure to move the ball and b
 
 func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void: # Checks if the doubler was hit
 	if existence_length == 0 or Data.duplicaters_duplicate:
-		if Data.number_of_balls < 100: # Makes sure there are not to many balls
+		if Data.number_of_balls < pow(get_node("/root/Main/TabContainer/Performance/Ball").value, 2) + 10: # Makes sure there are not to many balls
 			respawn() # Respawns
 			# Spawns a new ball
 			var _instance = load("res://src/ball.tscn")
@@ -63,10 +64,23 @@ func _on_doubler_area_shape_entered(area_rid: RID, area: Area2D, area_shape_inde
 			_instance.level = level
 			_instance.existence_length = 15
 			get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
+		else:
+			multiplier += 1
+			var _instance = load("res://src/Timer.tscn")
+			_instance = _instance.instance()
+			_instance.wait_time = 15
+			self.add_child(_instance)
+			_instance.start()
+
+func timeout() -> void:
+	_on_Timer_timeout()
 
 func _on_Timer_timeout() -> void: # Ball disappear after timer times out
-	Data.number_of_balls -= 1
-	self.queue_free()
+	if multiplier > 1:
+		multiplier -= 1
+	else:
+		Data.number_of_balls -= 1
+		self.queue_free()
 
 func update_speed() -> void: # Recalculates the speed when needed
 	speed = Data.balls[level - 1][0] * Data.speed_multiplier

@@ -16,8 +16,12 @@ func _ready() -> void:
 		if Data.cost.size() <= level or Data.earnings.size() <= level: # Makes sure that this is not an invalid level
 			self.queue_free()
 		else:
-			sprite.color = Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1)
-			update_interface()
+			if level > 15:
+				$Popup/Inner.color = Color.from_hsv((120+20*(level-15))/360.0, 0.9, 1, 1)
+				$Popup/Inner.visible = true
+				sprite.color = Color.black
+			else:
+				sprite.set_modulate(Color.from_hsv((120+20*level)/360.0, 0.9, 1, 1))
 	else:
 		sprite.hide()
 		sell.hide()
@@ -43,21 +47,21 @@ func update_interface() -> void: # Updates the buttons data
 	elif types == "goldenS":
 		# Formula for calculating the cost
 		cost = pow(10, log(Data.goldenStartChance  / -0.003)/log(0.9)+6)
-		button.text = "Golden Spawn Speed for %s" % Data.beautify(cost)
+		button.text = "Gold Spawn Speed for %s" % Data.beautify(cost)
 		if cost <= Data.money:
 			button.disabled = false
 		else:
 			button.disabled = true
 	elif types == "goldenA":
 		cost = pow(10, log(Data.goldenIncrease  / 0.000005)/log(1.22)+6) * 3
-		button.text = "Golden Spawn Acceleration for %s" % Data.beautify(cost)
+		button.text = "Gold Spawn Accel for %s" % Data.beautify(cost)
 		if cost <= Data.money:
 			button.disabled = false
 		else:
 			button.disabled = true
 	elif types == "goldenL":
 		cost = pow(10, log(Data.goldenLength)/log(1.2)+12)
-		button.text = "Golden Length increase for %s" % Data.beautify(cost)
+		button.text = "Gold Length increase for %s" % Data.beautify(cost)
 		earnings.text = "You are at x%s length" % Data.beautify(Data.goldenLength)
 		number.text = "Upgrade to x%s" % Data.beautify(Data.goldenLength * 1.2)
 		if cost <= Data.money:
@@ -66,7 +70,7 @@ func update_interface() -> void: # Updates the buttons data
 			button.disabled = true
 	elif types == "goldenM":
 		cost = pow(10, log(Data.goldenMagnitude)/log(1.2)+12) * 5 
-		button.text = "Golden Magnitude increase for %s" % Data.beautify(cost)
+		button.text = "Gold Mag increase for %s" % Data.beautify(cost)
 		earnings.text = "You are at x%s bonus" % Data.beautify(Data.goldenMagnitude)
 		number.text = "Upgrade to x%s" % Data.beautify(Data.goldenMagnitude * 1.2)
 		if cost <= Data.money:
@@ -91,6 +95,7 @@ func update_interface() -> void: # Updates the buttons data
 			self.visible = true
 
 func _on_Buy_button_up() -> void: # Used to pruchase and then increases the price when purchased
+	button.disabled = true
 	if types == "ball": # Checks if a ball is being purchased
 		if cost <= Data.money:
 			if len(Data.balls) >= level:
@@ -155,6 +160,7 @@ func _on_Buy_mouse_exited() -> void:
 
 func _on_Sell_button_up() -> void:
 	if Data.box_number(level) > 0:
+		sell.disabled = true
 		Data.cost[level] = ceil(Data.cost[level] / 1.15)
 		Data.money += ceil(Data.cost[level] * 0.5)
 		for x in get_node("/root/Main/Game Field").get_children():

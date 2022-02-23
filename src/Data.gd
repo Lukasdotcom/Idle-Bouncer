@@ -27,11 +27,10 @@ var goldenIncrease = 0.000005
 var goldenLength = 1
 var goldenMagnitude = 1
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
 func start() -> void: # Loads starting loader
+	number_of_balls = 0
+	first = null
+	first_animation = null
 	cost = [0, 10, 50, 500, 4500, 60000, 590000]
 	earnings = [0, 10, 50, 400, 2500, 14000, 85000]
 	# Adds additional boxes
@@ -62,7 +61,10 @@ func start() -> void: # Loads starting loader
 			_data["goldenMagnitude"] = 1
 			_data["upgrades"] = {"ball" : _data["ball_upgrades"], "golden" : false}
 			_data["version"] = "v0.6.0"
-		if _data["version"] == "v0.6.0": # Loads the save
+		if _data["version"] == "v0.6.0":
+			_data["performance"] = {"Simulate" : 75, "Show" : 100, "Ball" : 9.5}
+			_data["version"] = "v0.6.1"
+		if _data["version"] == "v0.6.1": # Loads the save
 			goldenLength = _data["goldenLength"]
 			goldenMagnitude = _data["goldenMagnitude"]
 			goldenChance = _data["goldenChance"]
@@ -84,6 +86,9 @@ func start() -> void: # Loads starting loader
 				if greatest_box < x[1]:
 					greatest_box = x[1]
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
+			# Loads performance settings
+			for x in _data["performance"]:
+				get_node("/root/Main/TabContainer/Performance/" + x).value = _data["performance"][x]
 		else: # Runs info for when no save is found
 			goldenLength = 1
 			goldenMagnitude = 1
@@ -138,7 +143,8 @@ func save() -> void: # Used to save the game
 		"goldenChance" : goldenChance,
 		"goldenLength" : goldenLength,
 		"goldenMagnitude" : goldenMagnitude,
-		"version" : "v0.6.0"
+		"performance" : {"Simulate" : get_node("/root/Main/TabContainer/Performance/Simulate").value, "Show" : get_node("/root/Main/TabContainer/Performance/Show").value, "Ball" : get_node("/root/Main/TabContainer/Performance/Ball").value},
+		"version" : "v0.6.1"
 	})
 	file.store_string(_save_data)
 	file.close()

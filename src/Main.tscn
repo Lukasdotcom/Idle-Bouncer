@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/black.png" type="Texture" id=1]
 [ext_resource path="res://src/Main.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://src/spinner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/white.png" type="Texture" id=7]
 [ext_resource path="res://src/Golden.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/Game Field.gd" type="Script" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
@@ -63,6 +64,83 @@ margin_top = 65.0
 margin_right = 468.0
 margin_bottom = 600.0
 theme = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Performance" type="Control" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 49.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Label" type="Label" parent="TabContainer/Performance"]
+margin_right = 40.0
+margin_bottom = 31.0
+text = "Performance Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="TabContainer/Performance"]
+margin_top = 43.0
+margin_right = 40.0
+margin_bottom = 74.0
+text = "% of boxes to simulate"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Simulate" type="HSlider" parent="TabContainer/Performance"]
+margin_left = 260.0
+margin_top = 52.0
+margin_right = 460.0
+margin_bottom = 72.0
+min_value = 1.0
+value = 75.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="TabContainer/Performance"]
+margin_top = 84.0
+margin_right = 40.0
+margin_bottom = 115.0
+text = "% of boxes to show"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Show" type="HSlider" parent="TabContainer/Performance"]
+margin_left = 260.0
+margin_top = 94.0
+margin_right = 460.0
+margin_bottom = 114.0
+value = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ball" type="HSlider" parent="TabContainer/Performance"]
+margin_left = 259.0
+margin_top = 127.0
+margin_right = 459.0
+margin_bottom = 147.0
+max_value = 17.0
+step = 0.5
+value = 9.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="TabContainer/Performance"]
+margin_top = 119.0
+margin_right = 40.0
+margin_bottom = 150.0
+text = "Ball Limit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -144,6 +222,7 @@ rect_min_size = Vector2( 422, 92 )
 
 [node name="Game Field" type="Node2D" parent="."]
 position = Vector2( 250, 0 )
+script = ExtResource( 9 )
 
 [node name="spinner" parent="Game Field" instance=ExtResource( 6 )]
 position = Vector2( 512, 300 )
@@ -162,13 +241,27 @@ position = Vector2( 669, 300 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 7 )
 
+[node name="Timer" type="Timer" parent="Game Field"]
+autostart = true
+
 [node name="Save Button" type="Button" parent="."]
-margin_left = 666.0
-margin_top = 24.0
-margin_right = 846.0
-margin_bottom = 61.0
+margin_left = 563.0
+margin_top = 25.0
+margin_right = 743.0
+margin_bottom = 62.0
 theme = ExtResource( 5 )
 text = "Save Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Export" type="Button" parent="."]
+margin_left = 781.0
+margin_top = 24.0
+margin_right = 961.0
+margin_bottom = 61.0
+theme = ExtResource( 5 )
+text = "Export/Import"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -201,7 +294,9 @@ script = ExtResource( 4 )
 [connection signal="button_up" from="TabContainer/Boxes/Box Number/Buy" to="TabContainer/Boxes/Box Number" method="_on_Buy_button_up"]
 [connection signal="mouse_entered" from="TabContainer/Boxes/Box Number/Buy" to="TabContainer/Boxes/Box Number" method="_on_Buy_mouse_entered"]
 [connection signal="mouse_exited" from="TabContainer/Boxes/Box Number/Buy" to="TabContainer/Boxes/Box Number" method="_on_Buy_mouse_exited"]
+[connection signal="timeout" from="Game Field/Timer" to="Game Field" method="_on_Timer_timeout"]
 [connection signal="button_up" from="Save Button" to="." method="_on_Save_Button_button_up"]
+[connection signal="button_up" from="Export" to="." method="_on_Export_button_up"]
 [connection signal="button_up" from="Reset" to="." method="_on_Reset_button_up"]
 [connection signal="timeout" from="Save" to="." method="_on_Save_timeout"]
 [connection signal="timeout" from="MPS Calculator" to="MPS Calculator" method="_on_Calculator_timeout"]
