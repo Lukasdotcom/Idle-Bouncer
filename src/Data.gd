@@ -64,7 +64,10 @@ func start() -> void: # Loads starting loader
 		if _data["version"] == "v0.6.0":
 			_data["performance"] = {"Simulate" : 75, "Show" : 100, "Ball" : 9.5}
 			_data["version"] = "v0.6.1"
-		if _data["version"] == "v0.6.1": # Loads the save
+		if _data["version"] == "v0.6.1":
+			_data["performance"]["CheckButton"] = false
+			_data["version"] = "v0.6.2"
+		if _data["version"] == "v0.6.2": # Loads the save
 			goldenLength = _data["goldenLength"]
 			goldenMagnitude = _data["goldenMagnitude"]
 			goldenChance = _data["goldenChance"]
@@ -88,7 +91,10 @@ func start() -> void: # Loads starting loader
 				get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 			# Loads performance settings
 			for x in _data["performance"]:
-				get_node("/root/Main/TabContainer/Performance/" + x).value = _data["performance"][x]
+				if x == "CheckButton":
+					get_node("/root/Main/TabContainer/Performance/" + x).pressed = _data["performance"][x]
+				else:
+					get_node("/root/Main/TabContainer/Performance/" + x).value = _data["performance"][x]
 		else: # Runs info for when no save is found
 			goldenLength = 1
 			goldenMagnitude = 1
@@ -143,8 +149,8 @@ func save() -> void: # Used to save the game
 		"goldenChance" : goldenChance,
 		"goldenLength" : goldenLength,
 		"goldenMagnitude" : goldenMagnitude,
-		"performance" : {"Simulate" : get_node("/root/Main/TabContainer/Performance/Simulate").value, "Show" : get_node("/root/Main/TabContainer/Performance/Show").value, "Ball" : get_node("/root/Main/TabContainer/Performance/Ball").value},
-		"version" : "v0.6.1"
+		"performance" : {"Simulate" : get_node("/root/Main/TabContainer/Performance/Simulate").value, "Show" : get_node("/root/Main/TabContainer/Performance/Show").value, "Ball" : get_node("/root/Main/TabContainer/Performance/Ball").value, "CheckButton" : get_node("/root/Main/TabContainer/Performance/CheckButton").pressed},
+		"version" : "v0.6.2"
 	})
 	file.store_string(_save_data)
 	file.close()

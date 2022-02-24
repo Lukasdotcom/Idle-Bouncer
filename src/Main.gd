@@ -5,6 +5,7 @@ onready var _tab: TabContainer = $TabContainer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Data.start()
+	_tab.current_tab = 1
 	update_interface()
 	Data.connect("update_game_interface", self, "update_interface")
 	Data.connect("ball_upgrades", self, "ball_upgrades")
@@ -59,3 +60,4 @@ func _process(delta: float) -> void: # Checks if a button is pressed to change m
 func _on_Export_button_up() -> void:
 	Data.save()
 	get_tree().change_scene("res://src/Export.tscn")
+

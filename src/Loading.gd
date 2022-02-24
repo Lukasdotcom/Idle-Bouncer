@@ -7,7 +7,7 @@ func _ready() -> void:
 		file.open(Data.save_file, File.READ)
 		if validate_json(file.get_as_text()) == "":
 			var _data = parse_json(file.get_as_text())
-			if _data["version"] in ["v0.5.0", "v0.5.1", "v0.5.2", "v0.6.0", "v0.6.1"]:
+			if _data["version"] in ["v0.5.0", "v0.5.1", "v0.5.2", "v0.6.0", "v0.6.1", "v0.6.2"]:
 				$Save.visible = true
 				$Timer.start()
 			else:

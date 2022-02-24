@@ -62,7 +62,7 @@ func delete() -> void: # Used to delete the box
 	self.queue_free()
 
 func update() -> void: # Does all the neccessaary hiding and disabling of physics.
-	if disabled:
+	if disabled: # Sets physics
 		if game.enabled / game.total < game.simulate or game.simulate == 1:
 			game.enabled += 1
 			game.disabledTotal -= Data.earnings[level]
@@ -74,13 +74,21 @@ func update() -> void: # Does all the neccessaary hiding and disabling of physic
 			game.disabledTotal += Data.earnings[level]
 			disabled = true
 			$Node2D/Area2D.collision_mask = 0
-	if invisible:
+	if invisible: # Sets visibility
 		if (game.visibly + 1) / game.total < game.show or game.show == 1:
 			game.visibly += 1
 			invisible = false
-			self.show()
 	else:
 		if game.visibly / game.total > game.show:
 			game.visibly -= 1
 			invisible = true
-			self.hide()
+	var _visibilty = true
+	# Makes sure to set the visibilty according to the right setting
+	if game.onlySimulate:
+		_visibilty = not disabled
+	else:
+		_visibilty = not invisible
+	if _visibilty:
+		self.show()
+	else:
+		self.hide()

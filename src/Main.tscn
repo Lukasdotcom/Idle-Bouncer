@@ -64,12 +64,12 @@ margin_top = 65.0
 margin_right = 468.0
 margin_bottom = 600.0
 theme = ExtResource( 5 )
+drag_to_rearrange_enabled = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Performance" type="Control" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -124,11 +124,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label5" type="Label" parent="TabContainer/Performance"]
+margin_top = 119.0
+margin_right = 40.0
+margin_bottom = 150.0
+text = "Only show simulated boxes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckButton" type="CheckButton" parent="TabContainer/Performance"]
+margin_left = 383.0
+margin_top = 118.0
+margin_right = 459.0
+margin_bottom = 158.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Ball" type="HSlider" parent="TabContainer/Performance"]
 margin_left = 259.0
-margin_top = 127.0
+margin_top = 161.0
 margin_right = 459.0
-margin_bottom = 147.0
+margin_bottom = 181.0
 max_value = 17.0
 step = 0.5
 value = 9.5
@@ -137,15 +155,16 @@ __meta__ = {
 }
 
 [node name="Label4" type="Label" parent="TabContainer/Performance"]
-margin_top = 119.0
-margin_right = 40.0
-margin_bottom = 150.0
+margin_top = 153.0
+margin_right = 103.0
+margin_bottom = 184.0
 text = "Ball Limit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Boxes" type="Control" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -291,10 +310,11 @@ wait_time = 0.25
 autostart = true
 script = ExtResource( 4 )
 
+[connection signal="button_up" from="TabContainer/Performance/CheckButton" to="Game Field" method="_on_change"]
 [connection signal="button_up" from="TabContainer/Boxes/Box Number/Buy" to="TabContainer/Boxes/Box Number" method="_on_Buy_button_up"]
 [connection signal="mouse_entered" from="TabContainer/Boxes/Box Number/Buy" to="TabContainer/Boxes/Box Number" method="_on_Buy_mouse_entered"]
 [connection signal="mouse_exited" from="TabContainer/Boxes/Box Number/Buy" to="TabContainer/Boxes/Box Number" method="_on_Buy_mouse_exited"]
-[connection signal="timeout" from="Game Field/Timer" to="Game Field" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Game Field/Timer" to="Game Field" method="_on_change"]
 [connection signal="button_up" from="Save Button" to="." method="_on_Save_Button_button_up"]
 [connection signal="button_up" from="Export" to="." method="_on_Export_button_up"]
 [connection signal="button_up" from="Reset" to="." method="_on_Reset_button_up"]
