@@ -58,6 +58,8 @@ func delete() -> void: # Used to delete the box
 		game.visibly -= 1
 	if not disabled:
 		game.enabled -= 1
+	else:
+		game.disabledTotal -= Data.earnings[level]
 	game.total -= 1
 	self.queue_free()
 
