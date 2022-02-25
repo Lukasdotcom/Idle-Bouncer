@@ -119,10 +119,10 @@ func start() -> void: # Loads starting loader
 			_instance.position = Vector2(512, 300)
 			get_node("/root/Main/Game Field").call_deferred("add_child", _instance)
 		file.close()
-		var _level = 1
-		for x in balls:
-			spawn_ball(_level)
-			_level += 1
+	var _level = 1
+	for x in balls:
+		spawn_ball(_level)
+		_level += 1
 
 func change_money(value: float) -> void: # Changes the score
 	money = value
